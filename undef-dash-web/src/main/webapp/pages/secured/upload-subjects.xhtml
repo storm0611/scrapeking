@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">upload subjects</ui:define>
+
+	<ui:define name="content">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+
+		<h:form id="form-message" class="p-col-10">
+			<p:messages id="message" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+		<div class="p-grid card p-col-10">
+			<div class="card p-col-12">
+				<h:form id="main-form">
+					<p:fileUpload listener="#{uploadSubjectsManagedBean.upload}"
+						mode="advanced" dragDropSupport="false" multiple="false"
+						fileLimit="1" allowTypes="/(\.|\/)(csv)$/" style="width:100%" />
+				</h:form>
+			</div>
+		</div>
+
+		<div class="p-grid card p-col-10">
+			<div class="card p-col-12">
+				<h:form id="form-2">
+					<h5>uploaded file : #{uploadSubjectsManagedBean.fileName}</h5>
+
+					<p:commandButton value="submit"
+						styleClass="success-button outlined-button"
+						action="#{uploadSubjectsManagedBean.btnSubmitSubjects()}"
+						update="form-2" />
+
+					<p:dataTable id="list-subjects" widgetVar="list-subjects"
+						var="subject" value="#{uploadSubjectsManagedBean.listSubjects}"
+						reflow="true" scrollable="true" scrollHeight="600"
+						styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+
+						<p:column style="text-align:center" headerText="name"
+							sortBy="#{subject.name}">
+							<h:outputText value="#{subject.name}" />
+						</p:column>
+
+						<p:column style="text-align:center" headerText="Email"
+							sortBy="#{subject.email}">
+							<h:outputText value="#{subject.email}" />
+						</p:column>
+
+
+					</p:dataTable>
+
+				</h:form>
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

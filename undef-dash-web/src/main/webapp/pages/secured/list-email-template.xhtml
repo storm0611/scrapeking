@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">email-template</ui:define>
+
+	<ui:define name="content">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<h:form id="form-message">
+			<p:messages id="message" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+		<div class="p-col-12">
+			<div class="card grid-item">
+
+				<h5 style="text-decoration: underline">list templates :</h5>
+				<h:form id="datatable-form">
+					<p:dataTable id="list-email-template"
+						widgetVar="list-email-template" var="emailTemplate"
+						value="#{listEmailTemplateManagedBean.listEmailTemplate}"
+						selection="#{listEmailTemplateManagedBean.selectedEmailTemplate}"
+						selectionMode="single" reflow="true"
+						rowKey="#{emailTemplate.emailTemplateId}" scrollable="true"
+						scrollHeight="600"
+						styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+
+						<p:column style="text-align:center" headerText="list templates"
+							sortBy="#{emailTemplate.label}">
+							<h:outputText value="#{emailTemplate.label}" />
+						</p:column>
+
+						<p:column style="text-align:center" headerText="edit" width="15%">
+							<p:commandLink global="false"
+								action="#{listEmailTemplateManagedBean.btnEditEmailTemplate()}">
+								<i class="pi pi-external-link"></i>
+								<f:setPropertyActionListener value="#{emailTemplate}"
+									target="#{listEmailTemplateManagedBean.selectedEmailTemplate}" />
+							</p:commandLink>
+						</p:column>
+
+						<p:column style="text-align:center" headerText="delete"
+							width="15%">
+							<p:commandLink global="false" update="@all"
+								oncomplete="PF('dlg-delete').show()">
+								<i class="pi pi-trash" style="font-size: 1rem; color: red"></i>
+								<f:setPropertyActionListener value="#{emailTemplate}"
+									target="#{listEmailTemplateManagedBean.selectedEmailTemplate}" />
+							</p:commandLink>
+						</p:column>
+
+					</p:dataTable>
+				</h:form>
+
+				<h:form id="form-delete">
+					<p:dialog header="Are you absolutely sure ?" id="dlg-delete"
+						widgetVar="dlg-delete" modal="true" responsive="true" width="350"
+						showEffect="fade" hideEffect="fade">
+
+						<h5 style="background-color: #e0e05ae6">Unexpected bad things
+							will happen if you don’t read this!</h5>
+
+						<p class="text-left">
+							This action <strong>cannot</strong> be undone. This will
+							permanently delete email template : <strong>
+								#{listEmailTemplateManagedBean.selectedEmailTemplate.label}</strong>
+						</p>
+						<p class="text-left">
+							Please type <strong>delete</strong> to confirm.
+						</p>
+						<div>
+							<p:inputText binding="#{deleteDialogConfirmValue}" id="d"
+								style="width:100% ; margin-bottom:8px">
+								<p:ajax event="keyup" update="btn-dialog-delete" global="false" />
+							</p:inputText>
+
+						</div>
+						<div>
+							<p:commandButton id="btn-dialog-delete" update="@all"
+								oncomplete="PF('dlg-delete').hide()"
+								disabled="#{deleteDialogConfirmValue.value =='delete' ? false : true}"
+								action="#{listEmailTemplateManagedBean.deleteEmailTemplate()}"
+								value="I understand the consequences continue with delete"
+								style="width:100%"
+								styleClass="danger-button outlined-button  p-mr-2 p-mb-2">
+								<p:resetInput target="@form" />
+							</p:commandButton>
+						</div>
+					</p:dialog>
+				</h:form>
+
+
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

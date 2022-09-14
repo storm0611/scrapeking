@@ -1,0 +1,292 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">sources</ui:define>
+
+	<ui:define name="viewname">
+		<li><p:link outcome="/pages/secured/crud-campaign">#{crudCampaignManagedBean.operation} campaign</p:link></li>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<style>
+.ui-wizard-step-title {
+	display: none;
+},
+.ui-column-filter {
+    display: none;
+},
+.ui-helper-hidden {
+    display: none;
+}
+</style>
+
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<h:form id="form-message">
+			<p:messages id="message" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+		<h:form id="main-form">
+
+			<p:wizard flowListener="#{crudCampaignManagedBean.onFlowProcess}"
+				style="height: 340px">
+
+
+
+
+
+
+				<p:tab id="campaign-details">
+					<p:panel header="create new campaign">
+						<div class="card ui-fluid ">
+							<div class="p-field p-col-8">
+								<p:outputLabel for="txt-campaign-name" value="campaign name : " />
+								<p:inputText id="txt-campaign-name" required="true"
+									value="#{crudCampaignManagedBean.targetCampaign.name}" />
+							</div>
+							<div class="p-field p-col-8">
+								<p:outputLabel for="txt-campaign-description"
+									value="description : " />
+								<p:inputTextarea id="txt-campaign-description"
+									value="#{crudCampaignManagedBean.targetCampaign.description}"
+									rows="4" />
+							</div>
+						</div>
+					</p:panel>
+				</p:tab>
+
+
+				<p:tab id="emailing-settings">
+					<p:panel header="emailing settings">
+						<div class="card p-grid">
+
+							<div class="card ui-fluid  p-col-4">
+								<div class="p-field">
+									<h5 style="text-decoration: underline">Service :</h5>
+									<p:inputSwitch id="checkbox-enable-emailing"
+										value="#{crudCampaignManagedBean.targetCampaign.enableEmailing}">
+										<f:ajax
+											render="picker-emailing-start-date drop-down-emailing-days txt-emailing-every-hours drop-down-list-first-attempt-email
+											drop-down-list-follow-up-email
+											drop-down-list-second-attempt-email
+											drop-down-list-email-server txt-delay-between-emails
+											txt-blacklisted-words
+											txt-max-sending-per-daytxt-rotate-frequency-between-email"></f:ajax>
+									</p:inputSwitch>
+								</div>
+								
+								<div class="p-field">
+									<p:outputLabel value="email server : "
+										for="drop-down-list-email-server" />
+									<p:selectCheckboxMenu id="drop-down-list-email-server"
+										requiredMessage="please make sure to select at least one emailing server"
+										required="true"
+										disabled="#{!crudCampaignManagedBean.targetCampaign.enableEmailing}"
+										converter="omnifaces.SelectItemsConverter" label="Select"
+										value="#{crudCampaignManagedBean.targetCampaign.listEmailServer}"
+										multiple="true">
+										<p:ajax event="change" listener="#{crudCampaignManagedBean.checkboxChangeListener}"/>
+										<f:selectItems
+											value="#{crudCampaignManagedBean.listEmailServer}"
+											var="emailServer" itemValue="#{emailServer}"
+											itemLabel="#{emailServer.label}" />
+									</p:selectCheckboxMenu>
+								</div>
+
+
+								<div class="p-grid">
+									<div class="p-field p-col-6 ">
+										<p:outputLabel for="txt-delay-between-emails"
+											value="Time Interv. until next email : " />
+										<p:spinner id="txt-delay-between-emails" min="1" max="100"
+											disabled="#{!crudCampaignManagedBean.targetCampaign.enableEmailing}"
+											value="#{crudCampaignManagedBean.targetCampaign.timeIntervalUntilNextEmail}" />
+									</div>
+								</div>
+
+
+								<div class="p-grid">
+									<div class="p-field p-col-6 ">
+										<p:outputLabel for="txt-blacklisted-words"
+											value="blacklisted words : " />
+										<p:inputText id="txt-blacklisted-words"
+											disabled="#{!crudCampaignManagedBean.targetCampaign.enableEmailing}"
+											value="#{crudCampaignManagedBean.targetCampaign.blacklistedWords}" />
+									</div>
+								</div>
+
+
+							</div>
+
+
+							<div class="card grid-item p-col-4">
+								<div class="ui-fluid p-col-12">
+									<h5 style="text-decoration: underline">Outreach templates
+										:</h5>
+									<div class="p-field ">
+										<p:outputLabel value="first attempt email :" />
+										<p:selectOneMenu class="p-col-4"
+											disabled="#{!crudCampaignManagedBean.targetCampaign.enableEmailing}"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{crudCampaignManagedBean.targetCampaign.firstAttemptEmail}"
+											id="drop-down-list-first-attempt-email">
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItems
+												value="#{crudCampaignManagedBean.listEmailTemplate}"
+												var="emailTemplate" itemValue="#{emailTemplate}"
+												itemLabel="#{emailTemplate.label}" />
+										</p:selectOneMenu>
+									</div>
+
+									<div class="p-field">
+										<p:outputLabel value="follow-up email :" />
+										<p:selectOneMenu class="p-col-4"
+											disabled="#{!crudCampaignManagedBean.targetCampaign.enableEmailing}"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{crudCampaignManagedBean.targetCampaign.followupEmail}"
+											id="drop-down-list-follow-up-email">
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItems
+												value="#{crudCampaignManagedBean.listEmailTemplate}"
+												var="emailTemplate" itemValue="#{emailTemplate}"
+												itemLabel="#{emailTemplate.label}" />
+										</p:selectOneMenu>
+									</div>
+
+									<div class="p-field">
+										<p:outputLabel value="second attempt email :" />
+										<p:selectOneMenu class="p-col-4"
+											disabled="#{!crudCampaignManagedBean.targetCampaign.enableEmailing}"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{crudCampaignManagedBean.targetCampaign.secondAttemptEmail}"
+											id="drop-down-list-second-attempt-email">
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItems
+												value="#{crudCampaignManagedBean.listEmailTemplate}"
+												var="emailTemplate" itemValue="#{emailTemplate}"
+												itemLabel="#{emailTemplate.label}" />
+										</p:selectOneMenu>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card grid-item p-col-4">
+								<div class="ui-fluid p-col-12">
+									<h5 style="text-decoration: underline">Scheduling :</h5>
+									<div class="p-field">
+										<p:outputLabel value="Days of week :" />
+										<p:selectCheckboxMenu id="drop-down-emailing-days"
+											required="true"
+											disabled="#{!crudCampaignManagedBean.targetCampaign.enableEmailing}"
+											converter="omnifaces.SelectItemsConverter" label="Select"
+											value="#{crudCampaignManagedBean.targetCampaign.emailingDays}">
+											<f:selectItem itemValue="Monday" itemLabel="Monday" />
+											<f:selectItem itemValue="Tuesday" itemLabel="Tuesday" />
+											<f:selectItem itemValue="Wednesday" itemLabel="Wednesday" />
+											<f:selectItem itemValue="Thursday" itemLabel="Thursday" />
+											<f:selectItem itemValue="Friday" itemLabel="Friday" />
+											<f:selectItem itemValue="Saturday" itemLabel="Saturday" />
+											<f:selectItem itemValue="Sunday" itemLabel="Sunday" />
+										</p:selectCheckboxMenu>
+									</div>
+								</div>
+							</div>
+							<p:commandButton value="submit campaign"
+								styleClass="success-button outlined-button" style="width:300px"
+								action="#{crudCampaignManagedBean.btnSubmitCampaign}">
+							</p:commandButton>
+
+						</div>
+					</p:panel>
+				</p:tab>
+
+
+
+
+
+			</p:wizard>
+
+
+		</h:form>
+		
+		<h:form id="form-edit">
+			<p:dialog header="Gmail credential's :" widgetVar="dlg-edit-details" id="dlg-edit-details"
+				modal="true" responsive="true" width="750" showEffect="fade"
+				hideEffect="fade">
+				
+				<p:toolbar style="display:none;">
+		            <p:toolbarGroup>
+		                <p:commandButton id="delete-products-button" value="#{crudCampaignManagedBean.checkedCredential}"
+		                                 icon="pi pi-trash" actionListener="#{crudCampaignManagedBean.saveSelectedCredentialsss}"
+		                                 styleClass="ui-button-danger"
+		                                 update="@this">
+		                    <p:confirm header="Confirmation" message="Delete the selected products?"
+		                               icon="pi pi-exclamation-triangle"/>
+		                </p:commandButton>
+		            </p:toolbarGroup>
+	        	</p:toolbar>
+				<p:dataTable var="gmailCredential" editable="false"
+					rows="10" rowKey="#{gmailCredential.gmailCredentialId}" selection="#{crudCampaignManagedBean.selectedCredentials}"
+                     paginator="true" id="dt-products" widgetVar="dtProducts" rowSelectMode="add"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                     rowsPerPageTemplate="10" paginatorPosition="bottom"
+					value="#{crudCampaignManagedBean.gmailCredentials}"
+					reflow="true" scrollable="true" scrollHeight="200"
+					styleClass="products-table ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+					
+					<f:facet name="header">
+		                <div class="products-table-header">
+		                    <span class="filter-container ui-input-icon-left">
+		                        <i class="pi pi-search"></i>
+		                        <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Search"/>
+		                    </span>
+		                </div>
+		            </f:facet>
+
+					<p:ajax event="rowSelect" update=":form-edit:delete-products-button"/>
+		            <p:ajax event="rowUnselect" update=":form-edit:delete-products-button"/>
+		            <p:ajax event="rowSelectCheckbox" update=":form-edit:delete-products-button"/>
+		            <p:ajax event="rowUnselectCheckbox" update=":form-edit:delete-products-button"/>
+		            <p:ajax event="toggleSelect" update=":form-edit:delete-products-button"/>
+
+					<p:column style="text-align:center" selectionMode="multiple" exportable="false" width="20%"></p:column>
+
+					<p:column style="text-align:center" headerText="email" width="80%" filterBy="#{gmailCredential.username}" sortBy="#{gmailCredential.username}">
+						<h:outputText value="#{gmailCredential.username}" />
+					</p:column>
+
+<!-- 					<p:column style="text-align:center" headerText="perDay" width="15%" filterBy="#{gmailCredential.perDay}" sortBy="#{gmailCredential.perDay}"> -->
+<!-- 						<h:outputText value="#{gmailCredential.perDay}" /> -->
+<!-- 					</p:column> -->
+					
+				</p:dataTable>
+				<f:facet name="footer">
+					<p:commandButton value="Ok" type="button" icon="pi pi-check"
+							styleClass="primary-button text-button"
+							onclick="PF('dlg-edit-details').hide()" />
+				</f:facet>
+
+
+			</p:dialog>
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>

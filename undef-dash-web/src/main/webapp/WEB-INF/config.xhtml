@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core" >
+
+    <div id="layout-config" class="layout-config">
+        <div class="layout-config-content">
+            <a href="#" id="layout-config-button" class="layout-config-button">
+                <i class="pi pi-cog"></i>
+            </a>
+            <h:form id="config-form" styleClass="layout-config-form">
+                <div class="layout-config-header">
+                    <h3>Theme Customization</h3>
+                    <span>Babylon offers different themes for layout, topbar, menu etc.</span>
+                </div>
+
+                <p:outputPanel id="outlined-panel" styleClass="layout-config-section options">
+                    <span class="section-name">Form Type</span>
+                    <div class="p-grid layout-config-options">
+                        <p:selectOneRadio layout="responsive" columns="2" value="#{guestPreferences.inputStyle}"
+                            onchange="PrimeFaces.BabylonConfigurator.updateInputStyle(event.target.value)">
+                            <f:selectItem itemLabel="Outlined" itemValue="outlined" />
+                            <f:selectItem itemLabel="Filled" itemValue="filled" />
+                            <p:ajax />
+                        </p:selectOneRadio>
+                    </div>
+                </p:outputPanel>
+
+                <p:outputPanel id="accentmode-panel" styleClass="layout-config-section dark">
+                    <span class="section-name">Accent Mode</span>
+                    <p:inputSwitch id="layout-switch-1" value="#{guestPreferences.accentMode}" onchange="PrimeFaces.BabylonConfigurator.changeComponentsTheme('#{guestPreferences.componentTheme}', event.target.checked)">
+                        <p:ajax onstart="PrimeFaces.BabylonConfigurator.beforeResourceChange()" update="accentmode-panel componentthemes-panel" />
+                    </p:inputSwitch>
+                </p:outputPanel>
+
+                <p:outputPanel id="orientation-panel" styleClass="layout-config-section dark">
+                    <span class="section-name">RTL Mode</span>
+                    <p:inputSwitch id="layout-switch-2" value="#{guestPreferences.orientationRTL}" onchange="PrimeFaces.BabylonConfigurator.changeMenuToRTL()">
+                        <p:ajax onstart="PrimeFaces.BabylonConfigurator.beforeResourceChange()" update="config-form" />
+                    </p:inputSwitch>
+                </p:outputPanel>
+
+                <p:outputPanel id="menumodes-panel" styleClass="layout-config-section options">
+                    <span class="section-name">Menu Mode</span>
+                    <div class="p-grid layout-config-options">
+                        <p:selectOneRadio layout="responsive" columns="2" value="#{guestPreferences.menuMode}" onchange="PrimeFaces.BabylonConfigurator.changeMenuMode(event.target.value)" >
+                            <f:selectItem itemLabel="Static" itemValue="layout-static" />
+                            <f:selectItem itemLabel="Overlay" itemValue="layout-overlay" />
+                            <f:selectItem itemLabel="Horizontal" itemValue="layout-horizontal" />
+                            <f:selectItem itemLabel="Slim" itemValue="layout-slim" />
+                            <p:ajax update="menumodes-panel" />
+                        </p:selectOneRadio>
+                    </div>
+                </p:outputPanel>
+
+                <p:outputPanel id="menu-colors-panel" styleClass="layout-config-section options" >
+                    <span class="section-name">Menu Color</span>
+                    <div class="p-grid layout-config-options" >
+                        <p:selectOneRadio layout="responsive" columns="2" value="#{guestPreferences.menuColor}" onchange="PrimeFaces.BabylonConfigurator.changeSectionTheme(event.target.value , 'layout-menu')"  >
+                            <f:selectItem itemLabel="Light" itemValue="light" />
+                            <f:selectItem itemLabel="Dark" itemValue="dark" />
+                            <p:ajax update="menu-colors-panel config-form" />
+                        </p:selectOneRadio>
+                    </div>
+                </p:outputPanel>
+
+                <p:outputPanel id="menutypes-panel" styleClass="layout-config-section options">
+                    <span class="section-name">Menu Type</span>
+                    <div class="p-grid layout-config-options">
+                        <p:selectOneRadio layout="responsive" columns="2" value="#{guestPreferences.groupedMenu}">
+                            <f:selectItem itemLabel="Grouped" itemValue="true" />
+                            <f:selectItem itemLabel="Ungrouped" itemValue="false" />
+                            <p:ajax oncomplete="setTimeout(function() {document.forms[0].submit()}, 500)" />
+                        </p:selectOneRadio>
+                    </div>
+                </p:outputPanel>
+
+                <p:outputPanel id="profilemenu-panel" styleClass="layout-config-section options">
+                    <span class="section-name">Profile Mode</span>
+                    <div class="p-grid layout-config-options">
+                        <p:selectOneRadio layout="responsive" columns="2" value="#{guestPreferences.profileMode}">
+                            <f:selectItem itemLabel="Popup" itemValue="popup" />
+                            <f:selectItem itemLabel="Inline" itemValue="inline" />
+                            <p:ajax oncomplete="setTimeout(function() {document.forms[0].submit()}, 500)" />
+                        </p:selectOneRadio>
+                    </div>
+                </p:outputPanel>
+
+
+                <p:outputPanel id="componentthemes-panel" styleClass="layout-config-section colors">
+                    <span class="section-name">Component Colors</span>
+                    <div class="p-grid layout-config-colors">
+                        <ui:repeat value="#{guestPreferences.componentThemes}" var="componentTheme">
+                            <div class="p-col p-col-fixed">
+                                <p:commandLink styleClass="layout-config-option"
+                                    actionListener="#{guestPreferences.setComponentTheme(componentTheme.file)}"
+                                    update=":config-form:componentthemes-panel toplogolink logolink :config-form:layout-switch-1"
+                                    onstart="PrimeFaces.BabylonConfigurator.beforeResourceChange()"
+                                    oncomplete="PrimeFaces.BabylonConfigurator.changeComponentsTheme('#{componentTheme.file}', '#{guestPreferences.accentMode}')">
+                                    <span class="layout-config-option-color"
+                                        style="background-color: #{componentTheme.color};" title="#{componentTheme.name}"></span>
+                                    <ui:fragment rendered="#{componentTheme.file eq guestPreferences.componentTheme}">
+                                        <span class="layout-config-option-check-mask">
+                                            <i class="pi pi-check"></i>
+                                        </span>
+                                    </ui:fragment>
+                                </p:commandLink>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </p:outputPanel>
+            </h:form>
+        </div>
+    </div>
+
+</ui:composition>

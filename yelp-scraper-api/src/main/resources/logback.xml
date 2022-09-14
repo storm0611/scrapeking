@@ -1,0 +1,59 @@
+<configuration>
+
+
+	<property name="MAIN_LOG_FILE" value="yelp.api" />
+	<property name="LOG_DIR" value="./logs/" />
+
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder>
+
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} (%line\) - %msg%n
+			</pattern>
+
+
+
+		</encoder>
+	</appender>
+
+
+
+
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/${MAIN_LOG_FILE}.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/${MAIN_LOG_FILE}.gz
+			</fileNamePattern>
+			<totalSizeCap>30GB</totalSizeCap>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.hibernate" level="OFF" />
+	<logger name="com.gargoylesoftware.htmlunit" level="OFF" />
+	<logger name="org.apache.commons.httpclient" level="OFF" />
+	<logger name="org.apache" level="OFF" />
+	<logger name="httpclient" level="OFF" />
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+
+
+
+
+
+
+
+
+</configuration>

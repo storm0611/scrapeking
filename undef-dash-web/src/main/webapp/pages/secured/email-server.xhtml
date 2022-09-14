@@ -1,0 +1,233 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Email servers</ui:define>
+
+
+
+	<ui:define name="content">
+
+
+		<style>
+.ui-dialog-titlebar {
+	display: none;
+}
+</style>
+
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<h:form id="form-message" class="p-col-12">
+			<p:messages id="message" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+
+		<div class="p-grid">
+			<div class="p-col-4 card">
+
+				<h5 style="text-decoration: underline">server configuration :</h5>
+				<h:form id="form-new-email-server">
+					<div class="card ui-fluid">
+						<div class="p-field">
+							<p:outputLabel for="drop-down-list-service">service : </p:outputLabel>
+							<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
+								value="#{emailServerManagedBean.newEmailServer.emailService}"
+								class="form-control" id="drop-down-list-service">
+								<p:ajax update="form-new-email-server" event="change" />
+								<f:selectItems
+									value="#{emailServerManagedBean.referenceListEmailService}"
+									var="emailService" itemValue="#{emailService}"
+									itemLabel="#{emailService.name}" />
+							</p:selectOneMenu>
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="email-server-label">label : </p:outputLabel>
+							<p:inputText id="email-server-label" required="true"
+								requiredMessage="Required : label"
+								value="#{emailServerManagedBean.newEmailServer.label}"></p:inputText>
+						</div>
+						<H6 style="text-decoration: underline">parameters :</H6>
+						<p:repeat
+							value="#{emailServerManagedBean.newEmailServer.emailService.listParameters}"
+							var="parameter">
+							<div class="p-field">
+								<p:outputLabel value="#{parameter} : " />
+								<p:inputText required="true"
+									requiredMessage="Required : #{parameter}"
+									value="#{emailServerManagedBean.newEmailServer.mapParameters[parameter]}"></p:inputText>
+							</div>
+						</p:repeat>
+
+						<p:commandButton value="Submit" style="width:115px"
+							update="form-datatable-email-servers,form-new-email-server"
+							action="#{emailServerManagedBean.addEmailServer()}" />
+
+						<h:commandButton value="clear"
+							style="width:95px;height:34px;background-color:#FFB300"
+							styleClass="p-ml-2">
+							<p:ajax update="@form" resetValues="true" />
+						</h:commandButton>
+
+					</div>
+				</h:form>
+			</div>
+
+
+			<div class="card p-col-8">
+				<h5 style="text-decoration: underline">registered servers :</h5>
+				<h:form id="form-datatable-email-servers">
+
+					<p:dataTable widgetVar="list-email-servers" var="emailServer"
+						value="#{emailServerManagedBean.listEmailServers}"
+						selectionMode="single" reflow="true"
+						selection="#{emailServerManagedBean. selectedEmailServer}"
+						rowKey="#{emailServer.emailServerId}" scrollable="true"
+						scrollHeight="340"
+						styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+
+						<p:column style="text-align:center" headerText="provider"
+							width="20%" sortBy="#{emailServer.emailService.name}">
+							<h:outputText value="#{emailServer.emailService.name}" />
+						</p:column>
+
+						<p:column headerText="label" sortBy="#{emailServer.label}"
+							width="60%">
+							<h:outputText value="#{emailServer.label}" />
+						</p:column>
+
+						<p:column style="text-align:center" headerText="Edit" width="10%">
+							<p:commandLink update="@form" global="false"
+								oncomplete="PF('dlg-edit-details').show()">
+								<i class="pi pi-pencil" style="font-size: 1rem"></i>
+								<f:setPropertyActionListener value="#{emailServer}"
+									target="#{emailServerManagedBean.selectedEmailServer}" />
+							</p:commandLink>
+						</p:column>
+
+						<p:column style="text-align:center" headerText="delete"
+							width="10%">
+							<p:commandLink update="@form" global="false"
+								oncomplete="PF('dlg-delete').show()">
+								<i class="pi pi-trash" style="font-size: 1rem; color: red"></i>
+								<f:setPropertyActionListener value="#{emailServer}"
+									target="#{emailServerManagedBean.selectedEmailServer}" />
+							</p:commandLink>
+						</p:column>
+
+					</p:dataTable>
+
+
+
+					<p:dialog header="Are you absolutely sure ?" widgetVar="dlg-delete"
+						modal="true" responsive="true" width="350" showEffect="fade"
+						hideEffect="fade">
+
+						<h5 style="background-color: #e0e05ae6">Unexpected bad things
+							will happen if you don’t read this!</h5>
+
+						<p class="text-left">
+							This action <strong>cannot</strong> be undone. This will
+							permanently delete emailing server : <strong>
+								#{emailServerManagedBean.selectedEmailServer.label}</strong> all
+							campaigns (with emailing enabled) using this server configuration
+							will be <strong>affected</strong>
+						</p>
+						<p class="text-left">
+							Please type <strong>delete</strong> to confirm.
+						</p>
+						<div>
+							<p:inputText binding="#{deleteDialogConfirmValue}" id="d"
+								style="width:100% ; margin-bottom:8px">
+								<p:ajax event="keyup" update="btn-dialog-delete" global="false" />
+							</p:inputText>
+
+						</div>
+						<div>
+							<p:commandButton id="btn-dialog-delete" resetValues="true"
+								update="@form" oncomplete="PF('dlg-delete').hide()"
+								disabled="#{deleteDialogConfirmValue.value =='delete' ? false : true}"
+								action="#{emailServerManagedBean.deleteEmailServer(deleteDialogConfirmValue.value)}"
+								value="I understand the consequences continue with delete"
+								style="width:100%"
+								styleClass="danger-button outlined-button  p-mr-2 p-mb-2" />
+						</div>
+
+					</p:dialog>
+
+					<p:dialog header="edit panel" widgetVar="dlg-edit-details"
+						modal="true" responsive="true" width="750" showEffect="fade"
+						hideEffect="fade">
+						<h5 style="text-decoration: underline">Edit Email Server :</h5>
+						<div class="ui-fluid">
+							<div class="p-field">
+								<strong><p:outputLabel value="service : "
+										style="font-size: 16px" /></strong>
+								<p:inputText disabled="true"
+									value="#{emailServerManagedBean.selectedEmailServer.emailService.name}" />
+							</div>
+							<div class="p-field">
+								<strong><p:outputLabel value="label : "
+										style="font-size: 16px" /></strong>
+								<p:inputText disabled="true"
+									value="#{emailServerManagedBean.selectedEmailServer.label}" />
+							</div>
+						</div>
+
+
+						<h5 style="text-decoration: underline">parameters :</h5>
+						<p:dataTable var="parameter" editable="true"
+							value="#{emailServerManagedBean.selectedEmailServer.mapParameters}"
+							reflow="true" scrollable="true" scrollHeight="200"
+							styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+
+							<p:ajax event="rowEdit"
+								listener="#{emailServerManagedBean.onEmailServerParameterRowEdit}"
+								update=":form-message:message" />
+
+							<p:column style="text-align:center" headerText="key" width="25%">
+								<h:outputText value="#{parameter.key}" />
+							</p:column>
+
+							<p:column headerText="value" width="60%">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{parameter.value}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText
+											value="#{emailServerManagedBean.selectedEmailServer.mapParameters[parameter.key]}"
+											style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column width="10%" value="edit">
+								<p:rowEditor />
+							</p:column>
+
+						</p:dataTable>
+						<f:facet name="footer">
+							<p:commandButton value="Dismiss" type="button" icon="pi pi-check"
+								styleClass="primary-button text-button"
+								onclick="PF('dlg-edit-details').hide()" />
+						</f:facet>
+					</p:dialog>
+				</h:form>
+			</div>
+
+		</div>
+	</ui:define>
+
+</ui:composition>

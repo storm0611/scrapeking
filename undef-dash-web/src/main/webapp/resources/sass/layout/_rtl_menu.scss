@@ -1,0 +1,518 @@
+.layout-rtl {
+    &.layout-wrapper {
+        .layout-menu-container {
+            direction: rtl;
+
+            .layout-menu-logo {               
+                a {
+                    text-align: right;
+                    padding-left: 0;
+                    padding-right: 12px;
+                }
+            }
+
+            .layout-profile {
+                &.layout-profile-active {
+                    .layout-profile-icon {
+                        @include rotate(180deg);
+                    }
+                }
+
+                .layout-profile-button {
+                    .layout-profile-userinfo {
+                        margin-left: 0;
+                        margin-right: 8px;
+                    }
+
+                    .layout-profile-icon {
+                        right: auto;
+                        left: 16px;
+                    }
+                }
+
+                .layout-profile-menu {                    
+                    li {
+                        a {
+                            text-align: right;
+
+                            i {
+                                margin-right: 0;
+                                margin-left: 8px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .layout-menu {
+                li {
+                    a {
+                        .layout-menuitem-icon {
+                            margin-right: 0;
+                            margin-left: 6px;
+                        }
+
+                        .layout-submenu-toggler {
+                            right: auto;
+                            left: 0px;
+                        }
+
+                        .menuitem-badge {
+                            left: 24px;
+                            right: auto;
+                        }
+                    }
+
+                    &.active-menuitem {
+                        > a {
+                            .layout-submenu-toggler {
+                                @include rotate(180deg);
+                            }
+                        }
+                    }
+
+                    ul {
+                        li {
+                            a {
+                                padding-right: 4px;
+                                padding-left: 0;
+                            }
+
+                            li {
+                                a {
+                                    padding-right: 16px;
+                                    padding-left: 0;
+                                }
+
+                                li {
+                                    a {
+                                        padding-right: 32px;
+                                        padding-left: 0;
+                                    }
+
+                                    li {
+                                        a {
+                                            padding-right: 48px;
+                                            padding-left: 0;
+                                        }
+
+                                        li {
+                                            a {
+                                                padding-right: 64px;
+                                                padding-left: 0;
+                                            }
+
+                                            li {
+                                                a {
+                                                    padding-right: 80px;
+                                                    padding-left: 0;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .layout-menu-tooltip {
+                    right: 61px;
+                    left: auto;
+
+                    .layout-menu-tooltip-arrow {
+                        right: 0;
+                        left: auto;
+                        border-width: 5px 0 5px 5px;
+                        border-right-color: transparent;
+                        border-left-color: $tooltipBgColor;
+                    }
+                }
+            }
+        }
+
+        &.layout-menu-light {
+            .layout-menu-container {
+                .layout-menu-wrapper {
+                    border-left: $menuBorder;
+                    border-right: transparent;
+                }
+            }
+        }
+
+        &.layout-menu-dark {
+            .layout-menu-container {
+                .layout-menu-wrapper {
+                    border-left: $darkMenuBorder;
+                    border-right: transparent;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $tabletBreakpoint + 1) {
+    .layout-rtl {
+        &.layout-wrapper {
+
+            &.layout-static {
+                .layout-menu-container {
+                    right: 0;
+                    left: auto;
+                    @include transition(right $transitionDuration);
+                }
+        
+                .layout-main {
+                    margin-left: 0;
+                    margin-right: 250px;
+                    @include transition(margin-right $transitionDuration);
+                }
+
+                .layout-footer {
+                    padding-left: 0;
+                    padding-right: 270px;
+                }
+        
+                &.layout-static-inactive {
+                    .layout-topbar {
+                        right: 0;
+                        left: 0;
+                        @include transition(right $transitionDuration);
+                    }
+
+                    .layout-menu-container {
+                        left: auto;
+                        right: -250px;
+                    }
+        
+                    .layout-main {
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+
+                    .layout-footer {
+                        padding-left: 0;
+                        padding-right: 20px;
+                    }
+                }
+            }
+        
+            &.layout-overlay {
+                .layout-topbar {
+                    right: 0;
+                    left: 0;
+                    @include transition(right $transitionDuration);
+                }
+
+                .layout-menu-container {
+                    right: -250px;
+                    left: auto;
+                    @include transition(right $transitionDuration);
+
+                    .layout-menu, .layout-profile {
+                        border-right: 1px solid transparent;
+                        border-left: 0 none;
+                    }
+                }
+        
+                &.layout-overlay-active {
+                    .layout-topbar {
+                        left: 0;
+                        right: 250px;
+                    }
+
+                    .layout-menu-container {
+                        left: auto;
+                        right: 0;
+                    }
+                }
+            }
+
+            &.layout-slim {
+                .layout-topbar {
+                    left: 0;
+                    right: 60px;
+                }
+
+                .layout-main {
+                    margin-left: 0;
+                    margin-right: 60px;
+                }
+
+                .layout-menu-container {
+                    right: 0;
+
+                    .layout-menu-logo {
+                        a {
+                            position: relative;
+
+                            img {
+                                position: absolute;
+                                left: 12px;
+                            }
+                        }
+                    }                                           
+                    .nano {
+                        .nano-content {
+                            margin-left: 0px !important;
+                            padding-left: 0px !important;
+                        }
+                    }
+
+                    .layout-profile {
+                        .layout-profile-menu {
+                            left: auto;
+                            right: 59px;
+                            border-left: 1px solid transparent;
+                            border-right: 4px solid $topbarBgColor;
+                            @include border-radius-right(0);
+                            @include border-radius-left($borderRadius);
+
+                            &:before, &:after {
+                                left: auto;
+                                right: 210px;
+                            }
+        
+                            &:before {
+                                margin-left: 0;
+                                margin-right: -10px;
+                            }
+        
+                            &:after {
+                                margin-left: 0;
+                                margin-right: -9px;
+                            }
+                        }
+                    }
+                    
+                    .layout-menu {                        
+                        > li {
+                            &.active-menuitem {
+                                > a {
+                                    @include border-radius-left(0);
+                                }
+                            }
+                                                
+                            > a {
+                                .layout-menuitem-icon {
+                                    margin-right: 0;
+                                    margin-left: 0;
+                                }
+                            }
+                            
+                            > ul {
+                                right: 59px;
+                                left: auto;
+                                border-right: 4px solid $topbarBgColor;
+                                border-left: 1px solid transparent;
+                                @include border-radius-left($borderRadius);
+                                @include border-radius-right(0);
+                                
+                                li {
+                                    ul {
+                                        li {
+                                            a {
+                                                padding-right: 28px;
+                                                padding-left: 0;
+                                            }
+                    
+                                            li {
+                                                a {
+                                                    padding-right: 44px;
+                                                    padding-left: 0;
+                                                }
+                    
+                                                li {
+                                                    a {
+                                                        padding-right: 60px;
+                                                        padding-left: 0;
+                                                    }
+                    
+                                                    li {
+                                                        a {
+                                                            padding-right: 76px;
+                                                            padding-left: 0;
+                                                        }
+                    
+                                                        li {
+                                                            a {
+                                                                padding-right: 92px;
+                                                                padding-left: 0;
+                                                            }
+                    
+                                                            li {
+                                                                a {
+                                                                    padding-right: 108px;
+                                                                    padding-left: 0;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.layout-horizontal {
+                .layout-topbar {
+                    right: 0;
+                    left: 0;
+                }
+
+                .layout-menu-container {
+                    .layout-profile {
+                        right: auto;
+                        left: 20px;
+
+                        .layout-profile-menu {
+                            right: auto;
+                            left: -20px;
+
+                            &:before, &:after {
+                                left: auto;
+                                right: 210px;
+                            }
+        
+                            &:before {
+                                margin-right: -10px;
+                                margin-left: 0;
+                            }
+        
+                            &:after {
+                                margin-left: 0;
+                                margin-right: -9px;
+                            }
+                        }
+                    }
+
+                    .layout-menu {
+                        > li {
+                            > ul {
+                                left: auto;
+                                right: 0;
+
+                                > li {
+                                    a {
+                                        .layout-menuitem-icon {
+                                            margin-right: 0;
+                                            margin-left: 8px;
+                                        }
+                                    }
+
+                                    li {
+                                        a {
+                                            padding-left: 0;
+                                            padding-right: 28px;
+                                        }
+                
+                                        li {
+                                            a {
+                                                padding-right: 44px;
+                                                padding-left: 0;
+                                            }
+                
+                                            li {
+                                                a {
+                                                    padding-right: 60px;
+                                                    padding-left: 0;
+                                                }
+                
+                                                li {
+                                                    a {
+                                                        padding-right: 76px;
+                                                        padding-left: 0;
+                                                    }
+                
+                                                    li {
+                                                        a {
+                                                            padding-right: 92px;
+                                                            padding-left: 0;
+                                                        }
+                
+                                                        li {
+                                                            a {
+                                                                padding-right: 108px;
+                                                                padding-left: 0;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.layout-menu-light {
+                    .layout-menu-container {
+                        .layout-menu-wrapper {
+                            border-right: 1px solid transparent;
+                            border-left: 0 none;
+                        }
+                    }
+                }
+
+                &.layout-menu-dark {
+
+                    .layout-menu-container {
+                        .layout-profile {
+                            border-right: 1px solid transparent;
+                            border-left: 0 none;
+                        }
+                    
+                        .layout-menu {
+                            border-right: 1px solid transparent;
+                            border-left: 0 none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $tabletBreakpoint) {
+    .layout-rtl {
+        &.layout-wrapper {
+            .layout-topbar {
+                left: 0;
+                right: 0;
+            }
+
+            .layout-menu-container {
+                left: auto;
+                right: -250px;
+                @include transition(right $transitionDuration);
+            }
+
+            .layout-main {
+                margin-right: 0;
+                margin-left: 0;
+                @include transition(margin-right $transitionDuration);
+            }
+
+            &.layout-mobile-active {
+                .layout-menu-container {
+                    right: 0;
+                    left: auto;
+                }
+            }
+        }
+    }
+
+    body.blocked-scroll {
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+    }
+}

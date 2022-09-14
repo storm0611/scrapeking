@@ -1,0 +1,146 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+	
+	<style>
+	.ui-dialog .ui-dialog-titlebar {display: none !important;}
+	</style>
+
+
+	<ui:define name="title">accounts</ui:define>
+	
+	<ui:define name="viewname">
+		<li><p:link outcome="/pages/secured/crud-campaign">gmail inbox</p:link></li>
+	</ui:define>
+
+
+
+
+
+	<ui:define name="content">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+
+		<h:form id="form-message" class="p-col-10">
+			<p:messages id="message"  closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+		<div class="p-grid card p-col-12">
+		
+			<div class="card p-col-12">
+				<div class="p-grid-item">
+					<div class="p-field">
+						<p:outputLabel for="label">FROM : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<h:outputText id="label" value="#{gmailMessageManagedBean.from}" />
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="website">T0 : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<h:outputText id="website" value="#{gmailMessageManagedBean.to}" />
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="perDay">SUBJECT : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<h:outputText id="perDay" value="#{gmailMessageManagedBean.subject}" />
+					</div>
+					<div class="p-field">
+						<p:commandButton type="button" value="reply" global="false" onclick="PF('dlg-edit-details').show()" />
+					</div>
+				</div>
+
+			</div>
+
+			<div class="card p-col-12">
+				<h:form>
+					<div class="card">
+					    <h:form id="form">
+							<h:outputText value="#{gmailMessageManagedBean.htmlString}" escape="false" />
+					    </h:form>
+					</div>
+				</h:form>
+			</div>
+			
+			<h:form id="form-edit">
+				<p:dialog widgetVar="dlg-edit-details" id="dlg-edit-details"
+					modal="true" responsive="true" width="750" showEffect="fade"
+					hideEffect="fade" closable="false">
+					<div class="ui-fluid">
+						<div class="p-field">
+							<h5 class="p-mt-0">Reply</h5>
+        					<p:textEditor widgetVar="editor1" value="#{gmailMessageManagedBean.replyText}" height="300" secure='false'>
+        						<f:facet name="toolbar">
+							        <span class="ql-formats">
+							            <select class="ql-font" />
+							            <select class="ql-size" />
+							        </span>
+							        <span class="ql-formats">
+							            <button class="ql-bold" />
+							            <button class="ql-italic" />
+							            <button class="ql-underline" />
+							            <button class="ql-strike" />
+							        </span>
+							        <span class="ql-formats">
+							            <select class="ql-color" />
+							            <select class="ql-background" />
+							        </span>
+							        <span class="ql-formats">
+							            <button class="ql-script" value="sub" />
+							            <button class="ql-script" value="super" />
+							        </span>
+							        <span class="ql-formats">
+							            <button class="ql-header" value="1" />
+							            <button class="ql-header" value="2" />
+							            <button class="ql-blockquote" />
+							            <button class="ql-code-block" />
+							        </span>
+							        <span class="ql-formats">
+							            <button class="ql-list" value="ordered" />
+							            <button class="ql-list" value="bullet" />
+							            <button class="ql-indent" value="-1" />
+							            <button class="ql-indent" value="+1" />
+							        </span>
+							        <span class="ql-formats">
+							            <button class="ql-direction" value="rtl" />
+							            <select class="ql-align" />
+							        </span>
+							        <span class="ql-formats">
+							            <button class="ql-clean" />
+							        </span>
+						    	</f:facet>
+        					</p:textEditor>
+						</div>
+						
+					</div>
+					<f:facet name="footer">
+						<span style="color: #2196F3;" class="ui-button-icon-left ui-icon ui-c pi pi-check"></span>
+						<h:commandButton class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left primary-button text-button" value="Save" action="#{gmailMessageManagedBean.btnSentMail()}"/>
+						<p:commandButton value="Dismiss" type="button" icon="pi pi-times"
+							styleClass="primary-button text-button"
+							onclick="PF('dlg-edit-details').hide()" />
+					</f:facet>
+
+
+				</p:dialog>
+			</h:form>
+
+
+		</div>
+
+
+
+	</ui:define>
+
+</ui:composition>

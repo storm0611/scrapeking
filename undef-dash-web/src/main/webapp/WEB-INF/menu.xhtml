@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="layout-menu-container">
+		<div class="layout-menu-logo">
+			<h:link id="logolink">
+				<h4 style="text-align: center">APPLICATION_LOGO</h4>
+				<!--                 <p:graphicImage name="images/#{guestPreferences.darkLogo ? 'logo-black.png' : 'logo-white.png'}" library="babylon-layout" /> -->
+			</h:link>
+		</div>
+
+		<div class="nano layout-menu-wrapper">
+			<div class="nano-content menu-scroll-content">
+				<h:form id="menuform">
+					<ui:fragment
+						rendered="#{guestPreferences.profileMode == 'inline' ? true : false}">
+						<div class="layout-profile">
+							<a class="layout-profile-button" href="#"> <p:graphicImage
+									name="images/avatar.png" library="babylon-layout" />
+								<div class="layout-profile-userinfo">
+									<span class="layout-profile-name">Arlene Welch</span> <span
+										class="layout-profile-role">Design Ops</span>
+								</div> <i class="layout-profile-icon pi pi-chevron-down"></i>
+							</a>
+							<ul class="layout-profile-menu">
+								<li><a href="#"> <i
+										class="pi pi-user layout-menuitem-icon"></i> <span
+										class="layout-menuitem-text">Profile</span>
+								</a></li>
+								<li><a href="#"> <i
+										class="pi pi-cog layout-menuitem-icon"></i> <span
+										class="layout-menuitem-text">Settings</span>
+								</a></li>
+								<li><a href="#"> <i
+										class="pi pi-envelope layout-menuitem-icon"></i> <span
+										class="layout-menuitem-text">Messages</span>
+								</a></li>
+								<li><a href="#"> <i
+										class="pi pi-bell layout-menuitem-icon"></i> <span
+										class="layout-menuitem-text">Notifications</span>
+								</a></li>
+							</ul>
+						</div>
+					</ui:fragment>
+
+					<ui:include
+						src="#{guestPreferences.groupedMenu ? 'groupedMenu.xhtml' : 'ungroupedMenu.xhtml'}" />
+
+				</h:form>
+			</div>
+		</div>
+	</div>
+</ui:composition>

@@ -1,0 +1,282 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">manage campaign</ui:define>
+
+	<ui:define name="content">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<div class="p-col-10">
+			<h:form id="form-message">
+				<p:messages id="message" closable="true" />
+			</h:form>
+		</div>
+
+		<div class="p-grid">
+
+
+			<div class="card p-col-12">
+
+				<h5 style="text-decoration: underline">campaign details :</h5>
+				<h:form id="form-campaign-details">
+					<div class="p-formgroup-inline">
+						<div class="p-field p-ml-3">
+							<p:outputLabel for="campaign-name">name : </p:outputLabel>
+							<p:inputText id="campaign-name" style="width:280px"
+								value="#{manageCampaignManagedBean.campaign.name}"
+								disabled="true" />
+						</div>
+
+
+						<div class="p-field  p-ml-2">
+							<p:commandButton value="edit settings"
+								action="#{manageCampaignManagedBean.btnEditCampaign()}"
+								style="width:120px" styleClass="outlined-button success-button" />
+						</div>
+
+						<div class="p-field  p-ml-2">
+							<p:commandButton value="schedule new task"
+								action="#{manageCampaignManagedBean.btnScheduleNewTask()}"
+								style="width:160px" styleClass="outlined-button success-button" />
+						</div>
+
+
+						<div class="p-field  p-ml-2">
+							<p:commandButton value="view collected leads"
+								action="#{manageCampaignManagedBean.btnViewCollectedLeads()}"
+								style="width:160px" styleClass="outlined-button success-button" />
+						</div>
+
+
+						<div class="p-field  p-ml-2">
+							<p:commandButton value="upload leads file"
+								action="#{manageCampaignManagedBean.btnUploadRecordsFile()}"
+								style="width:160px" styleClass="outlined-button success-button" />
+						</div>
+
+
+						<div class="p-field  p-ml-2">
+							<p:commandButton value="delete campaign"
+								action="#{manageCampaignManagedBean.btnDeleteCampaign()}"
+								style="width:160px" styleClass="outlined-button success-button" />
+						</div>
+						
+						<div class="p-field  p-ml-2">
+							<p:commandButton value="failed emails"
+								action="#{manageCampaignManagedBean.btnFailedEmails()}"
+								style="width:160px" styleClass="outlined-button success-button" />
+						</div>
+						
+						<div class="p-field  p-ml-2">
+							<p:commandButton value="email wise status"
+								action="#{manageCampaignManagedBean.btnEmailWiseStatus()}"
+								style="width:160px" styleClass="outlined-button success-button" />
+						</div>
+
+
+					</div>
+				</h:form>
+			</div>
+			
+			<div class="card p-col-4">
+
+				<h5 style="text-decoration: underline">Send email success count :</h5>
+				<div class="p-grid-item">
+					<div class="p-field">
+						<p:outputLabel for="label">TRIGGER 1 : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<b><h:outputText style="margin-left: 10px;" id="label" value="#{manageCampaignManagedBean.trigge1SuccessEmailCount}" /></b>
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="website">TRIGGER 2 : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<b><h:outputText style="margin-left: 10px;" id="website" value="#{manageCampaignManagedBean.trigge2SuccessEmailCount}" /></b>
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="perDay">TRIGGER 3 : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<b><h:outputText style="margin-left: 10px;" id="perDay" value="#{manageCampaignManagedBean.trigge3SuccessEmailCount}" /></b>
+					</div>
+				</div>
+			</div>
+			
+			<div class="card p-col-4">
+
+				<h5 style="text-decoration: underline">Send email fail count :</h5>
+				<div class="p-grid-item">
+					<div class="p-field">
+						<p:outputLabel for="label1">TRIGGER 1 : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<b><h:outputText style="margin-left: 10px;" id="label1" value="#{manageCampaignManagedBean.trigge1FailEmailCount}" /></b>
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="website1">TRIGGER 2 : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<b><h:outputText style="margin-left: 10px;" id="website1" value="#{manageCampaignManagedBean.trigge2FailEmailCount}" /></b>
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="perDay1">TRIGGER 3 : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<b><h:outputText style="margin-left: 10px;" id="perDay1" value="#{manageCampaignManagedBean.trigge3FailEmailCount}" /></b>
+					</div>
+				</div>
+			</div>
+			
+			<div class="card p-col-4">
+
+				<h5 style="text-decoration: underline">Send email unsubscribe count :</h5>
+				<div class="p-grid-item">
+					<div class="p-field">
+						<p:outputLabel for="label2">UNSUBSCRIBE : </p:outputLabel>
+						<h:outputText value=" " escape="false"/>
+						<b><h:outputText style="margin-left: 10px;" id="label2" value="#{manageCampaignManagedBean.unsubscribeCount}" /></b>
+					</div>
+				</div>
+			</div>
+
+			<div class="card p-col-12">
+				<h5 style="text-decoration: underline">list scheduled tasks :</h5>
+				<h:form id="form-datatable-tasks">
+					<p:dataTable widgetVar="list-tasks" var="task"
+						value="#{manageCampaignManagedBean.listTasks}"
+						selectionMode="single" reflow="true" rowKey="#{task.taskId}"
+						scrollable="true" scrollHeight="500"
+						styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+
+						<p:column headerText="instance" width="22%">
+							<h:outputText value="#{task.instance.url}" />
+						</p:column>
+
+						<p:column headerText="created">
+							<h:outputText value="#{task.created}" />
+						</p:column>
+
+						<p:column headerText="cron settings">
+							<h:outputText
+								value="#{task.repeatForever ==false ? 'run only once'  :  'every '.concat(task.cronValue).concat(' ').concat(task.cronUnit)  }" />
+						</p:column>
+
+						<p:column style="text-align:center" headerText="enable/disable">
+							<p:commandLink
+								value="#{task.status =='active' ? 'active' : 'inactive' }"
+								update="@all"
+								action="#{manageCampaignManagedBean.btnStartStopTask()}">
+								<i class="pi pi-arrow" style="font-size: 1rem"></i>
+								<f:setPropertyActionListener value="#{task}"
+									target="#{manageCampaignManagedBean.selectedTask}" />
+							</p:commandLink>
+						</p:column>
+
+
+						<p:column style="text-align:center" headerText="delete">
+							<p:commandLink update="@form" global="false"
+								oncomplete="PF('dlg-delete').show()">
+								<i class="pi pi-trash" style="font-size: 1rem; color: red"></i>
+								<f:setPropertyActionListener value="#{task}"
+									target="#{manageCampaignManagedBean.selectedTask}" />
+							</p:commandLink>
+						</p:column>
+
+
+						<p:column style="text-align:center" headerText="edit">
+							<p:commandLink value="edit" update="@all"
+								action="#{manageCampaignManagedBean.btnEditTask()}">
+								<i class="pi pi-arrow" style="font-size: 1rem"></i>
+								<f:setPropertyActionListener value="#{task}"
+									target="#{manageCampaignManagedBean.selectedTask}" />
+							</p:commandLink>
+						</p:column>
+
+
+						<p:column style="text-align:center" headerText="configuration">
+							<p:commandLink update="@form" global="false"
+								oncomplete="PF('paramertersBar').show()">
+								<i class="pi pi-eye" style="font-size: 1rem"></i>
+								<f:setPropertyActionListener value="#{task}"
+									target="#{manageCampaignManagedBean.selectedTask}" />
+							</p:commandLink>
+						</p:column>
+
+					</p:dataTable>
+
+
+					<p:sidebar widgetVar="paramertersBar" fullScreen="true"
+						baseZIndex="10000">
+						<h1 style="font-weight: normal">Task parameters :</h1>
+						<p:panel id="task-parameters">
+							<div class="card ui-fluid ">
+								<p:repeat
+									value="#{manageCampaignManagedBean.selectedTask.parameters}"
+									var="parameter">
+									<div class="p-field p-col-8">
+										<p:outputLabel value="#{parameter.key} : " />
+										<p:inputTextarea disabled="true" rows="3" autoResize="false"
+											value="#{manageCampaignManagedBean.selectedTask.parameters[parameter.key]}">
+										</p:inputTextarea>
+									</div>
+								</p:repeat>
+							</div>
+						</p:panel>
+					</p:sidebar>
+
+
+
+
+					<p:dialog header="Are you absolutely sure ?" widgetVar="dlg-delete"
+						modal="true" responsive="true" width="350" showEffect="fade"
+						hideEffect="fade">
+
+						<h5 style="background-color: #e0e05ae6">Unexpected bad things
+							will happen if you don’t read this!</h5>
+
+						<p class="text-left">
+							This action <strong>cannot</strong> be undone. This will
+							permanently delete instance : <strong> </strong> and all
+							scheduled tasks using this API will be stopped and deleted
+
+						</p>
+						<p class="text-left">
+							Please type <strong>delete</strong> to confirm.
+						</p>
+						<div>
+							<p:inputText binding="#{deleteDialogConfirmValue}" id="d"
+								style="width:100% ; margin-bottom:8px">
+								<p:ajax event="keyup" update="btn-dialog-delete" global="false" />
+							</p:inputText>
+
+						</div>
+						<div>
+							<p:commandButton id="btn-dialog-delete" update="@all"
+								resetValues="true" oncomplete="PF('dlg-delete').hide()"
+								disabled="#{deleteDialogConfirmValue.value =='delete' ? false : true}"
+								action="#{manageCampaignManagedBean.btnDeleteTask(deleteDialogConfirmValue.value)}"
+								value="I understand the consequences continue with delete"
+								style="width:100%"
+								styleClass="danger-button outlined-button  p-mr-2 p-mb-2">
+							</p:commandButton>
+						</div>
+					</p:dialog>
+
+
+
+				</h:form>
+
+
+			</div>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>

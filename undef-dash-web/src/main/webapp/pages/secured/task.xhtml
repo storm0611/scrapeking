@@ -1,0 +1,187 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+
+	<style>
+.calendarClass input {
+	width: 50px !important
+}
+</style>
+	<ui:define name="title">task</ui:define>
+	<ui:define name="viewname">
+		<li><p:link outcome="/pages/secured/task">task</p:link></li>
+	</ui:define>
+
+
+
+
+	<ui:define name="content">
+
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+
+
+		<h:form id="form-message">
+			<p:messages id="message" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+
+		<div class="grid">
+			<div class="card">
+
+				<h:form>
+
+					<div class="p-grid">
+						<div class="p-col-6 card">
+							<h5 style="text-decoration: underline">task settings :</h5>
+							<div class="grid-item p-grid">
+
+								<div class="grid-item p-col-12 ui-fluid">
+									<div class="p-field">
+										<p:outputLabel for="campaign-name">campaign name : </p:outputLabel>
+										<p:inputText id="campaign-name" disabled="true"
+											value="#{taskManagedBean.task.campaign.name}" />
+									</div>
+								</div>
+
+
+ 
+								<div class="p-grid ui-fluid p-col-12">
+									<div class="p-field p-col-4">
+										<p:outputLabel for="drop-down-list-source">source : </p:outputLabel>
+										<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
+											disabled="#{taskManagedBean.operation =='edit' ? true  : false }"
+											required="true" requiredMessage="Required 'Source'"
+											value="#{taskManagedBean.task.source}"
+											id="drop-down-list-source">
+
+											<p:ajax update="drop-down-list-instance" event="change" />
+
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItems value="#{taskManagedBean.listSources}"
+												var="source" itemValue="#{source}"
+												itemLabel="#{source.title}" />
+										</p:selectOneMenu>
+									</div>
+
+									<div class="p-field p-col-8">
+
+										<p:outputLabel for="drop-down-list-instance">instance : </p:outputLabel>
+										<p:selectOneMenu id="drop-down-list-instance"
+											disabled="#{taskManagedBean.operation =='edit' ? true  : false }"
+											label="select an instance"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{taskManagedBean.task.instance}" required="true"
+											requiredMessage="Required 'Instance'" class="form-control">
+											<p:ajax listener="#{taskManagedBean.onInstanceChange()}"
+												update="task-parameters" />
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItems var="instance" itemValue="#{instance}"
+												itemLabel="#{instance.url}"
+												value="#{taskManagedBean.task.source.listInstance}" />
+										</p:selectOneMenu>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="grid-item p-grid">
+								<div class="card grid-item">
+									<div class="ui-fluid p-formgrid p-grid">
+										<div class="p-field p-col-12 p-md-4">
+											<p:outputLabel for="checkbox-repeat-forever"
+												value="repeat forever : " />
+											<div></div>
+											<p:selectBooleanButton id="checkbox-repeat-forever"
+												value="#{taskManagedBean.task.repeatForever}"
+												offLabel="No (task will run only one time)" onLabel="Yes">
+												<f:ajax render="txt-cron-value txt-cron-unit"></f:ajax>
+											</p:selectBooleanButton>
+										</div>
+
+										<div class="p-field p-col-2">
+											<p:outputLabel for="txt-cron-value" value="repeat every : " />
+											<p:inputNumber id="txt-cron-value" required="true"
+												minValue="1" requiredMessage="Required 'Repeat every'"
+												value="#{taskManagedBean.task.cronValue}"
+												disabled="#{!taskManagedBean.task.repeatForever}" />
+										</div>
+										<div class="p-field p-col-6 p-md-6">
+											<p:outputLabel for="txt-cron-unit" value="Time unit : " />
+											<p:selectOneMenu id="txt-cron-unit"
+												value="#{taskManagedBean.task.cronUnit}"
+												disabled="#{!taskManagedBean.task.repeatForever}">
+												<f:selectItem itemLabel="Select One"
+													itemValue="#{taskManagedBean.task.cronUnit}"
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="HOURS" itemValue="HOURS" />
+												<f:selectItem itemLabel="MINUTES" itemValue="MINUTES" />
+												<f:selectItem itemLabel="SECONDS" itemValue="SECONDS" />
+											</p:selectOneMenu>
+										</div>
+
+										<div class="p-field p-col-12 p-md-6">
+											<p:outputLabel for="picker-date-expire" value="expire at : " />
+											<p:datePicker id="picker-date-expire" showTime="true"
+												value="#{taskManagedBean.task.expireDate}" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 	disabled="#{!taskManagedBean.task.instance.online}" -->
+							<p:commandButton value="submit" id="btn-submit"
+								styleClass="success-button outlined-button" style="width:250px"
+								action="#{taskManagedBean.submitTask()}">
+							</p:commandButton>
+
+						</div>
+
+
+						<div class="p-col-6 card">
+							<h5 style="text-decoration: underline">task parameters :</h5>
+							<div class="grid-item p-grid ui-fluid fix">
+								<p:panel id="task-parameters"
+									style="overflow: auto; height: 500px;width:100%">
+									<p:repeat value="#{taskManagedBean.task.parameters}"
+										var="parameter">
+										<div class="p-field p-col-12">
+											<p:outputLabel value="#{parameter.key} : " />
+											<p:inputTextarea required="true"
+												requiredMessage="Required : #{parameter.key}" rows="2"
+												autoResize="false"
+												value="#{taskManagedBean.task.parameters[parameter.key]}">
+											</p:inputTextarea>
+										</div>
+									</p:repeat>
+								</p:panel>
+							</div>
+
+
+
+						</div>
+
+
+
+
+					</div>
+				</h:form>
+
+			</div>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>

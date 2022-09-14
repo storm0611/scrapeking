@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    </f:facet>
+    <title>PrimeFaces Babylon </title>
+    <script type="text/javascript">
+        hideMenu = function () {
+            $(document.body).removeClass('landing-menu-active').children('.layout-mask').remove();
+        }
+
+        showMenu = function () {
+            var mask = $('<div class="layout-mask"></div>').on('click', function(e) {
+                hideMenu();
+            });
+            $(document.body).addClass('landing-menu-active').append(mask);
+        }
+
+        $(function () {
+            $('#landing-menu-button').on('click', function (e) {
+                if ($(document.body).hasClass('landing-menu-active'))
+                    hideMenu();
+                else
+                    showMenu();
+
+                e.preventDefault();
+            });
+
+            $('#landing-menu').find('a').on('click', function (e) {
+                hideMenu();
+            });
+        });
+    </script>
+</h:head>
+
+<h:body styleClass="landing-body">
+    <div class="landing-wrapper">
+        <div id="header">
+            <div class="header-top">
+                <p:graphicImage name="images/logo-black.png" library="babylon-layout" styleClass="logo"/>
+                <a id="landing-menu-button" href="#">
+                    <i class="pi pi-ellipsis-v"></i>
+                </a>
+                <ul id="landing-menu">
+                    <li>
+                        <a href="#home">Home</a>
+                    </li>
+                    <li>
+                        <a href="#features">Features</a>
+                    </li>
+                    <li>
+                        <a href="#news">News</a>
+                    </li>
+                    <li>
+                        <a href="#pricing">Pricing</a>
+                    </li>
+                    <li>
+                        <a href="#multimedia">Multimedia</a>
+                    </li>
+                    <li>
+                        <a href="https://www.primefaces.org/store">Buy Now</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="header-content">
+                <h1>PrimeFaces Presents Babylon.</h1>
+                <p>Modern and elegant responsive application template.</p>
+                <p:button outcome="dashboard" value="Learn More" />
+            </div>
+        </div>
+
+        <div id="features">
+            <h1>Features</h1>
+            <p>Full Customizable Template</p>
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12 p-xl-4">
+                    <div class="feature-box">
+                        <p:graphicImage name="images/landing/icon-responsivelayout.svg" library="babylon-layout" />
+                        <h3>Responsive Layout</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+                <div class="p-col-12 p-md-12 p-xl-4">
+                    <div class="feature-box">
+                        <p:graphicImage name="images/landing/icon-moderndesign.svg" library="babylon-layout" />
+                        <h3>Modern Design</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+                <div class="p-col-12 p-md-12 p-xl-4">
+                    <div class="feature-box">
+                        <p:graphicImage name="images/landing/icon-welldocumented.svg" library="babylon-layout" />
+                        <h3>Well Documented</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+                <div class="p-col-12 p-md-12 p-xl-4">
+                    <div class="feature-box">
+                        <p:graphicImage name="images/landing/shape.svg" library="babylon-layout" />
+                        <h3>Clean Code</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+                <div class="p-col-12 p-md-12 p-xl-4">
+                    <div class="feature-box">
+                        <p:graphicImage name="images/landing/icon-gorgeous.svg" library="babylon-layout" />
+                        <h3>Gorgeous</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+                <div class="p-col-12 p-md-12 p-xl-4">
+                    <div class="feature-box">
+                        <p:graphicImage name="images/landing/icon-craftedforyou.svg" library="babylon-layout" />
+                        <h3>Crafted for You</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="promo">
+            <h1>Join Babylon</h1>
+            <p>Take advantage of media's most prominent business trend which empowers
+                your internal advertising teams.</p>
+
+            <p:commandButton type="button" value="Learn More" />
+
+            <p:graphicImage name="images/landing/babylon-icon-cta.png" library="babylon-layout" />
+        </div>
+
+        <div id="pricing">
+            <h1>Pricing</h1>
+            <p>Affordable Prices, Highest Quality</p>
+
+            <div class="p-grid">
+                <div class="p-col-12 p-xl-4">
+                    <div class="pricing-box">
+                        <h3>Beginner</h3>
+                        <span class="pricing-intro">Starting From</span>
+                        <h3>5$ per month</h3>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in ex condimentum, bibendum ligula a, ultrices magna.</p>
+                        <ul>
+                            <li><i class="pi pi-check"></i> Responsive</li>
+                            <li><i class="pi pi-check"></i> Push Messages</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="p-col-12 p-xl-4">
+                    <div class="pricing-box">
+                        <h3>Professional</h3>
+                        <span class="pricing-intro">Starting From</span>
+                        <h3>10$ per month</h3>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in ex condimentum, bibendum ligula a, ultrices magna.</p>
+                        <ul>
+                            <li><i class="pi pi-check"></i> Responsive</li>
+                            <li><i class="pi pi-check"></i> Push Messages</li>
+                            <li><i class="pi pi-check"></i> 10 Support Tickets</li>
+                            <li><i class="pi pi-check"></i> Free Shipping</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="p-col-12 p-xl-4">
+                    <div class="pricing-box">
+                        <h3>Enterprise</h3>
+                        <span class="pricing-intro">Starting From</span>
+                        <h3>20$ per month</h3>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in ex condimentum, bibendum ligula a, ultrices magna.</p>
+                        <ul>
+                            <li><i class="pi pi-check"></i> Responsive</li>
+                            <li><i class="pi pi-check"></i> Push Messages</li>
+                            <li><i class="pi pi-check"></i> 10 Support Tickets</li>
+                            <li><i class="pi pi-check"></i> Free Shipping</li>
+                            <li><i class="pi pi-check"></i> Unlimited Space</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="multimedia">
+            <h1>Multimedia</h1>
+            <p>Duis nec lobortis massa, sed facilisis lorem. In hac habitasse platea dictumst. </p>
+
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/Mcb8JtyQDJ4" frameborder="0" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="p-grid">
+                <div class="p-col-12 p-xl-4">
+                    <p:graphicImage name="images/logo-white.png" library="babylon-layout" styleClass="footer-logo"/>
+                </div>
+                <div class="p-col-12 p-xl-8 footer-menu">
+                    <div class="p-grid">
+                        <div class="p-col-12 p-md-6 p-xl-3">
+                            <span>OVERVIEW</span>
+                            <a href="#primefaces">Why PrimeFaces</a>
+                            <a href="#prime">Who Uses PrimeFaces</a>
+                            <a href="#testimonials">Testimonials</a>
+                            <a href="#licence">License</a>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-xl-3">
+                            <span>DEMOS</span>
+                            <a href="#faces">PrimeFaces</a>
+                            <a href="#ng">PrimeNG</a>
+                            <a href="#react">PrimeReact</a>
+                            <a href="#ui">PrimeUI</a>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-xl-3">
+                            <span>SUPPORT</span>
+                            <a href="#options">Support Options</a>
+                            <a href="#pro">PrimeFaces PRO</a>
+                            <a href="#elite">PrimeFaces Elite</a>
+                            <a href="#forum">Forum</a>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-xl-3">
+                            <span>SOCIAL</span>
+                            <a href="#twitter" class="icon-link"><i class="pi pi-twitter icon"></i></a>
+                            <a href="#facebook" class="icon-link"><i class="pi pi-facebook icon"></i></a>
+                            <a href="#github" class="icon-link"><i class="pi pi-github icon"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h:outputStylesheet name="css/layout-#{guestPreferences.componentTheme}.css" library="babylon-layout" />
+    <h:outputStylesheet name="css/primeflex.min.css" library="babylon-layout" />
+
+    <script>
+        //<![CDATA[
+        var $this = this;
+
+        $(document).ready(function () {
+            $('html').animate({ scrollTop: 0 }, 1);
+            $('body').animate({ scrollTop: 0 }, 1);
+        });
+
+        /* Scroll Animate */
+        $('a[href*="#"]:not([href="#"])').click(function () {
+            var target = $(this.hash);
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top
+                }, 500);
+                return false;
+            }
+        });
+
+        //window and animation items
+        var animation_elements = $.find('.animation-element');
+        var web_window = $(window);
+
+        //check to see if any animation containers are currently in view
+        function check_if_in_view() {
+            //get current window information
+            var window_height = web_window.height();
+            var window_top_position = web_window.scrollTop();
+            var window_bottom_position = (window_top_position + window_height);
+
+            //iterate through elements to see if its in view
+            $.each(animation_elements, function () {
+                //get the element sinformation
+                var element = $(this);
+                var element_height = $(element).outerHeight();
+                var element_top_position = $(element).offset().top;
+                var element_bottom_position = (element_top_position + element_height);
+
+                //check to see if this current container is visible (its viewable if it exists between the viewable space of the viewport)
+
+                if ((element_top_position <= window_bottom_position)) {
+                    element.addClass('in-view');
+                }
+
+            });
+        }
+
+        //on or scroll, detect elements in view
+        $(window).on('scroll resize', function () {
+            check_if_in_view()
+        })
+        //trigger our scroll event on initial load
+        $(window).trigger('scroll');
+        //]]>
+    </script>
+</h:body>
+
+</html>

@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">failed emails</ui:define>
+
+	<ui:define name="viewname">
+		<li>campaign failed emails</li>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<style>
+.ui-wizard-step-title {
+	display: none;
+},
+.ui-column-filter {
+    display: none;
+},
+.ui-helper-hidden {
+    display: none;
+}
+.ui-datatable-frozenlayout-left {
+        width: 20%;
+    }
+
+    .ui-datatable-frozenlayout-right {
+        width: 80%;
+    }
+</style>
+
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<h:form id="form-message">
+			<p:messages id="message" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+		<div class="p-grid card p-col-12">
+		
+			<div class="card p-col-12">
+				<h5 style="text-decoration: underline">Gmail send failed email's :</h5>
+				<h:form>
+					<div class="card">
+						<h:form id="form-edit">
+								
+								<p:dataTable var="gmailFailedEmail" editable="false"
+									rows="10"
+				                     paginator="true" id="dt-products" widgetVar="dtProducts"
+				                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+				                     rowsPerPageTemplate="10" paginatorPosition="bottom"
+									value="#{gmailFailedEmailManagedBean.gmailFailedEmails}"
+									scrollable="true"
+									styleClass="products-table ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+									
+									<f:facet name="header">
+						                <div class="products-table-header">
+						                    <span class="filter-container ui-input-icon-left">
+						                        <i class="pi pi-search"></i>
+						                        <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Search"/>
+						                    </span>
+						                </div>
+						            </f:facet>
+						            
+						            <p:column style="text-align:center" headerText="From email" filterBy="#{gmailFailedEmail.fromEmail}" sortBy="#{gmailFailedEmail.fromEmail}">
+										<h:outputText value="#{gmailFailedEmail.fromEmail}" />
+									</p:column>
+				
+									<p:column style="text-align:center" headerText="Lead email" filterBy="#{gmailFailedEmail.leadEmail}" sortBy="#{gmailFailedEmail.leadEmail}">
+										<h:outputText value="#{gmailFailedEmail.leadEmail}" />
+									</p:column>
+									
+									<p:column style="text-align:center" headerText="Reason" filterBy="#{gmailFailedEmail.reason}" sortBy="#{gmailFailedEmail.reason}">
+										<h:outputText value="#{gmailFailedEmail.reason}" />
+									</p:column>
+									
+									<p:column style="text-align:center;" headerText="Date">
+						                <h:outputText value="#{gmailFailedEmail.created}" >
+										    <f:convertDateTime pattern="d MMM yyyy HH:mm" />
+										</h:outputText>
+						            </p:column>
+				
+				<!-- 					<p:column style="text-align:center" headerText="perDay" width="15%" filterBy="#{gmailFailedEmail.perDay}" sortBy="#{gmailFailedEmail.perDay}"> -->
+				<!-- 						<h:outputText value="#{gmailFailedEmail.perDay}" /> -->
+				<!-- 					</p:column> -->
+									
+								</p:dataTable>
+				
+						</h:form>
+					</div>
+				</h:form>
+			</div>
+
+
+		</div>
+		
+	</ui:define>
+
+</ui:composition>

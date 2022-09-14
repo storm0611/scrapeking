@@ -1,0 +1,189 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">email-template</ui:define>
+
+	<ui:define name="content">
+
+
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<h:form id="form-message">
+			<p:messages id="message" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+
+		<div class="p-grid">
+
+
+			<div class="p-col-11 card grid-item">
+				<h5 style="text-decoration: underline">outreach template :</h5>
+				<h:form id="add-email-template-form">
+
+					<div class="p-col-12 p-formgroup-inline">
+						<div class="p-field">
+							<p:outputLabel for="txt-label">label : </p:outputLabel>
+							<p:inputText id="txt-label" type="text" required="true"
+								style="width:130px" requiredMessage="Required : label"
+								value="#{emailTemplateManagedBean.targetEmailTemplate.label}" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="txt-subject">subject : </p:outputLabel>
+							<p:inputText id="txt-subject" type="text" required="true"
+								requiredMessage="Required : subject"
+								value="#{emailTemplateManagedBean.targetEmailTemplate.subject}" />
+
+						</div>
+						<div class="p-field">
+							<p:commandButton styleClass="outlined-button p-ml-4"
+								value="preview"
+								action="#{emailTemplateManagedBean.btnPreview()}"
+								oncomplete="PF('dlg-preview-email').show()" update="form-dialog">
+							</p:commandButton>
+							<p:commandButton styleClass="outlined-button p-ml-4" value="save"
+								action="#{emailTemplateManagedBean.btnSubmitEmailTemplate()}">
+							</p:commandButton>
+						</div>
+					</div>
+					
+					<div class="p-field">
+						<p:outputLabel style="margin-left: 7px;" for="txt-subject">content : </p:outputLabel>
+						<p:textEditor class="p-col-12" secure="false" height="450"
+							required="true" requiredMessage="Required : content"
+							widgetVar="editor2"
+							value="#{emailTemplateManagedBean.targetEmailTemplate.content}"
+							style="margin-bottom:10px" placeholder="Enter your content">
+						</p:textEditor>
+					</div>
+					
+					<div class="p-field">
+						<p:outputLabel style="margin-left: 7px;" for="txt-subject">content2 : </p:outputLabel>
+						<p:commandButton styleClass="outlined-button p-ml-4"
+							value="preview"
+							action="#{emailTemplateManagedBean.btnPreview2()}"
+							oncomplete="PF('dlg-preview-email').show()" update="form-dialog">
+						</p:commandButton>
+						<p:textEditor class="p-col-12" secure="false" height="450"
+							required="true" requiredMessage="Required : content2"
+							widgetVar="editor3"
+							value="#{emailTemplateManagedBean.targetEmailTemplate.content2}"
+							style="margin-bottom:10px" placeholder="Enter your content2">
+						</p:textEditor>
+					</div>
+					
+					<div class="p-field">
+						<p:outputLabel style="margin-left: 7px;" for="txt-subject">content3 : </p:outputLabel>
+						<p:commandButton styleClass="outlined-button p-ml-4"
+							value="preview"
+							action="#{emailTemplateManagedBean.btnPreview3()}"
+							oncomplete="PF('dlg-preview-email').show()" update="form-dialog">
+						</p:commandButton>
+						<p:textEditor class="p-col-12" secure="false" height="450"
+							required="true" requiredMessage="Required : content3"
+							widgetVar="editor4"
+							value="#{emailTemplateManagedBean.targetEmailTemplate.content3}"
+							style="margin-bottom:10px" placeholder="Enter your content3">
+						</p:textEditor>
+					</div>
+					
+					<div class="p-field">
+						<p:outputLabel style="margin-left: 7px;" for="txt-subject">content4 : </p:outputLabel>
+						<p:commandButton styleClass="outlined-button p-ml-4"
+							value="preview"
+							action="#{emailTemplateManagedBean.btnPreview4()}"
+							oncomplete="PF('dlg-preview-email').show()" update="form-dialog">
+						</p:commandButton>
+						<p:textEditor class="p-col-12" secure="false" height="450"
+							required="true" requiredMessage="Required : content4"
+							widgetVar="editor5"
+							value="#{emailTemplateManagedBean.targetEmailTemplate.content4}"
+							style="margin-bottom:10px" placeholder="Enter your content4">
+						</p:textEditor>
+					</div>
+					
+					<div class="p-field">
+						<p:outputLabel style="margin-left: 7px;" for="txt-subject">content5 : </p:outputLabel>
+						<p:commandButton styleClass="outlined-button p-ml-4"
+							value="preview"
+							action="#{emailTemplateManagedBean.btnPreview5()}"
+							oncomplete="PF('dlg-preview-email').show()" update="form-dialog">
+						</p:commandButton>
+						<p:textEditor class="p-col-12" secure="false" height="450"
+							required="true" requiredMessage="Required : content5"
+							widgetVar="editor6"
+							value="#{emailTemplateManagedBean.targetEmailTemplate.content5}"
+							style="margin-bottom:10px" placeholder="Enter your content5">
+						</p:textEditor>
+					</div>
+					
+					<div class="p-field">
+						<p:outputLabel style="margin-left: 7px;" for="txt-subject">content6 : </p:outputLabel>
+						<p:commandButton styleClass="outlined-button p-ml-4"
+							value="preview"
+							action="#{emailTemplateManagedBean.btnPreview6()}"
+							oncomplete="PF('dlg-preview-email').show()" update="form-dialog">
+						</p:commandButton>
+						<p:textEditor class="p-col-12" secure="false" height="450"
+							required="true" requiredMessage="Required : content6"
+							widgetVar="editor7"
+							value="#{emailTemplateManagedBean.targetEmailTemplate.content6}"
+							style="margin-bottom:10px" placeholder="Enter your content6">
+						</p:textEditor>
+					</div>
+					
+				</h:form>
+			</div>
+
+
+			<h:form id="form-dialog">
+				<p:dialog id="dlg-preview-email" widgetVar="dlg-preview-email"
+					modal="true" responsive="true" width="680" height="600"
+					showEffect=" fade" hideEffect="fade">
+					<h5 style="background-color: #e0e05ae6">Email Preview Screen</h5>
+					<div>
+						<div class="p-formgroup-inline">
+							<div class="p-field">
+								<strong><h:outputLabel value="subject : "
+										style="font-size: 16px" /></strong>
+								<h:outputLabel escape="false" style="font-size: 16px"
+									value="	#{emailTemplateManagedBean.subjectHolder}" />
+							</div>
+						</div>
+					</div>
+					<div>
+						<strong><h:outputLabel value="content : "
+								style="font-size: 16px" /></strong> <br />
+						<h:outputLabel escape="false" style="font-size: 14px"
+							value="#{emailTemplateManagedBean.contentHolder}" />
+					</div>
+					<f:facet name="footer">
+						<p:commandButton value="Dismiss" type="button" icon="pi pi-check"
+							styleClass="primary-button text-button"
+							onclick="PF('dlg-preview-email').hide()" />
+					</f:facet>
+				</p:dialog>
+			</h:form>
+
+
+
+
+
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>

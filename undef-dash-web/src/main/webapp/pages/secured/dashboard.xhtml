@@ -1,0 +1,173 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="head">
+		<h:outputScript name="chartjs/chart.js" library="demo" />
+		<script type="text/javascript">
+            $(function() {
+                var ctx = document.getElementById("dashboard-chart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                        datasets: [{
+                            label: 'Sales',
+                            data: [12, 19, 3, 5, 2, 3, 9],
+                            borderColor: [
+                                '#FFB300',
+                            ],
+                            borderWidth: 3,
+                            borderDash:[5, 5],
+                            fill: false,
+                            pointRadius: 3
+                        }, {
+                            label: 'Income',
+                            data: [1, 2, 5, 3, 12, 7, 15],
+                            backgroundColor: [
+                                'rgba(187,222,251,0.2)',
+                            ],
+                            borderColor: [
+                                '#42A5F5',
+                            ],
+                            borderWidth: 3,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        hover: {
+                            mode: 'index'
+                        },
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                            }],
+                            yAxes: [{
+                                display: true,
+                            }]
+                        }
+                    }
+                });
+            });
+        </script>
+	</ui:define>
+
+
+	<ui:define name="title">dashboard</ui:define>
+	<ui:define name="viewname">
+		<li><p:link outcome="/pages/secured/dashboard">Dashboard</p:link></li>
+	</ui:define>
+
+
+	<ui:define name="content">
+
+		<div class="p-grid">
+
+			<div id="top-bar-item" class="p-grid p-col-12">
+				<div class="p-col-12 p-md-6 p-xl-3">
+					<div class="overview-box blue">
+						<i class="overview-icon pi pi-volume-up"></i> <span
+							class="overview-title">Active Campaigns</span> <i
+							class="overview-arrow pi pi-chevron-circle-up"></i>
+						<div class="overview-numbers">#{dashboardManagedBean.listCampaigns.size()}</div>
+						<div class="overview-subinfo">_</div>
+					</div>
+				</div>
+				<div class="p-col-12 p-md-6 p-xl-3">
+					<div class="overview-box purple">
+						<i class="overview-icon pi pi-users"></i> <span
+							class="overview-title">Collected Leads</span> <i
+							class="overview-arrow pi pi-chevron-circle-up"></i>
+						<div class="overview-numbers">#{dashboardManagedBean.totalLeadsCount}</div>
+						<div class="overview-subinfo">Last update on :
+							#{dashboardManagedBean.lastPullDate}</div>
+					</div>
+				</div>
+				<div class="p-col-12 p-md-6 p-xl-3">
+					<div class="overview-box orange">
+						<i class="overview-icon pi pi-cog"></i> <span
+							class="overview-title">Scheduled Tasks</span> <i
+							class="overview-arrow pi pi-chevron-circle-up"></i>
+						<div class="overview-numbers">#{dashboardManagedBean.taskCount}</div>
+						<div class="overview-subinfo">_</div>
+					</div>
+				</div>
+				<div class="p-col-12 p-md-6 p-xl-3">
+					<div class="overview-box green">
+						<i class="overview-icon pi pi-th-large"></i> <span
+							class="overview-title">Sources/Instances</span> <i
+							class="overview-arrow pi pi-chevron-circle-up"></i>
+						<div class="overview-numbers">#{dashboardManagedBean.listSources.size()}</div>
+						<div class="overview-subinfo">_</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="grid-item p-col-9">
+				<div class="card">
+					<h5 style="text-decoration: underline">list campaigns :</h5>
+
+					<h:form id="form-datatable-list-campaigns">
+
+						<p:dataTable id="datatable-list-campaigns"
+							style="font-size: 16px !important;"
+							widgetVar="datatable-list-campaigns" var="campaign"
+							value="#{dashboardManagedBean.listCampaigns}"
+							selection="#{dashboardManagedBean.selectedCampaign}"
+							selectionMode="single" reflow="true"
+							rowKey="#{campaign.campaignId}" scrollable="true"
+							scrollHeight="350"
+							styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+
+							<p:column style="text-align:center" filterBy="#{campaign.name}"
+								headerText="campaign name" sortBy="#{campaign.name}">
+								<h:outputText value="#{campaign.name}" />
+							</p:column>
+
+							<p:column style="text-align:center" filterBy="#{campaign.status}"
+								width="25%" headerText="status" sortBy="#{campaign.status}">
+								<h:outputText value="#{campaign.status}" />
+							</p:column>
+
+							<p:column style="text-align:center" headerText="explore"
+								width="25%">
+								<p:commandLink update="@form" global="false" value="view"
+									action="#{dashboardManagedBean.btnViewCampaign()}">
+									<i class="pi pi-edit" style="font-size: 1rem"></i>
+									<f:setPropertyActionListener value="#{campaign}"
+										target="#{dashboardManagedBean.selectedCampaign}" />
+								</p:commandLink>
+							</p:column>
+
+							<p:column style="text-align:center" headerText="view leads"
+								width="25%">
+								<p:commandLink update="@form" global="false" value="view"
+									action="#{dashboardManagedBean.btnViewLeads()}">
+									<i class="pi pi-edit" style="font-size: 1rem"></i>
+									<f:setPropertyActionListener value="#{campaign}"
+										target="#{dashboardManagedBean.selectedCampaign}" />
+								</p:commandLink>
+							</p:column>
+
+							<f:facet name="footer">_</f:facet>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+
+
+
+
+
+
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>

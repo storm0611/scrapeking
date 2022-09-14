@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">list-records</ui:define>
+
+	<ui:define name="content">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<h:form id="form-message">
+			<p:messages id="message" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+		<div class="p-col-12">
+			<div class="card grid-item">
+
+				<h5 style="text-decoration: underline">collected leads :</h5>
+				<h:form id="datatable-form">
+
+					<p:dataTable id="list-leads" var="record"
+						value="#{listCampaignLeadsManagedBean.lazyModel}" paginator="true"
+						rows="100" reflow="true" rowKey="#{record.recordId}"
+						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+						currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+						rowsPerPageTemplate="100" selectionMode="single">
+
+						<p:column style="text-align:center" headerText="source"
+							width="10%" sortBy="#{record.source}">
+							<h:outputText value="#{record.source}" />
+						</p:column>
+
+						<p:column style="text-align:center" headerText="schema"
+							width="10%" sortBy="#{record.schema}">
+							<h:outputText value="#{record.schema}" />
+						</p:column>
+
+						<p:column style="text-align:center" headerText="data"
+							sortBy="#{record.data}">
+							<h:outputText value="#{record.data}" />
+						</p:column>
+
+
+						<p:column style="text-align:center" headerText="saved on"
+							width="10%">
+							<h:outputText value="#{record.insertDate}" />
+						</p:column>
+
+
+
+
+					</p:dataTable>
+				</h:form>
+
+
+
+
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

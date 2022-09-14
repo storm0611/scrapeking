@@ -1,0 +1,595 @@
+New York
+Brooklyn
+Queens
+Manhattan
+Bronx
+Buffalo
+Hempstead
+Rochester
+Albany
+Brookhaven
+Staten Island
+Syracuse
+Poughkeepsie
+Islip
+Oyster Bay
+North Hempstead
+Babylon
+Huntington
+Yonkers
+Binghamton
+Ramapo
+Amherst
+Smithtown
+Utica
+Greece
+Greenburgh
+Clarkstown
+Cheektowaga
+Colonie
+New Rochelle
+Saratoga Springs
+Mount Vernon
+Schenectady
+Glens Falls
+Brentwood
+Elmira
+Clay
+Middletown
+Hamburg
+White Plains
+Southampton
+Ithaca
+Kingston
+Union
+Watertown
+Levittown
+Irondequoit
+Orangetown
+Troy
+Niagara Falls
+Perinton
+Rye
+West Seneca
+Mount Pleasant
+Webster
+Henrietta
+Lancaster
+Freeport
+Hicksville
+West Babylon
+Cortlandt
+Jamestown
+Coram
+East Meadow
+Ossining
+Valley Stream
+Oswego
+Penfield
+Haverstraw
+Commack
+Clifton Park
+Yorktown
+Brighton
+Elmont
+Guilderland
+New City
+Bethlehem
+Lockport
+Carmel
+Riverhead
+Long Beach
+Eastchester
+Huntington Station
+Salina
+Clarence
+Spring Valley
+Rome
+Franklin Square
+Uniondale
+Manlius
+Centereach
+Warwick
+Central Islip
+Newburgh
+Cicero
+Oceanside
+Auburn
+North Tonawanda
+Bay Shore
+Mamaroneck
+Rotterdam
+Orchard Park
+Pittsford
+East Fishkill
+Glenville
+Port Chester
+Harrison
+Plattsburgh
+Wallkill
+Shirley
+Chili
+Geneva
+Gates
+Vestal
+Gloversville
+Deer Park
+Queensbury
+New Windsor
+Glen Cove
+West Islip
+Kiryas Joel
+Lindenhurst
+Cortland
+Wappinger
+Plainview
+Dix Hills
+Holbrook
+De Witt
+Baldwin
+Palm Tree
+Rockville Centre
+Medford
+Peekskill
+Camillus
+Halfmoon
+Fishkill
+Dunkirk
+Montgomery
+Ilion
+Copiague
+Monsey
+Lysander
+Onondaga
+Garden City
+Niskayuna
+East Patchogue
+Southold
+East Hampton
+New Hartford
+Massapequa
+North Bay Shore
+Somers
+Le Ray
+Amsterdam
+Grand Island
+Hyde Park
+Oneida
+Olean
+North Bellmore
+Lake Ronkonkoma
+Ogden
+East Northport
+Merrick
+Selden
+Hauppauge
+West Hempstead
+Monroe
+Brockport
+Holtsville
+Syosset
+Lynbrook
+Corning
+Milton
+Mineola
+Horseheads
+Saugerties
+Owego
+North Valley Stream
+North Massapequa
+North Amityville
+Ronkonkoma
+Whitestown
+Southeast
+Wheatfield
+Wantagh
+New Castle
+Scarsdale
+Bedford
+Lackawanna
+Melville
+Bethpage
+East Massapequa
+Blooming Grove
+Nanuet
+Woodmere
+Oneonta
+Massapequa Park
+North Babylon
+Roosevelt
+Wilton
+Cohoes
+Batavia
+Geddes
+Pearl River
+Kings Park
+East Greenbush
+Port Jervis
+Evans
+Sayville
+Malta
+Floral Park
+Lewiston
+Port Washington
+Eggertsville
+Farmingville
+Parma
+La Grange
+Potsdam
+Mastic
+Moreau
+Bellmore
+Westbury
+Stony Point
+South Farmingdale
+Sullivan
+North New Hyde Park
+Seaford
+Kenmore
+Depew
+Thompson
+Victor
+New Cassel
+Hampton Bays
+Tonawanda
+Dryden
+Beekman
+Greenlawn
+Malone
+Jefferson Valley-Yorktown
+New Paltz
+Johnson City
+Sweden
+Pomfret
+Goshen
+Beacon
+Shawangunk
+Jericho
+Aurora
+St. James
+Arcadia
+Rocky Point
+Newark
+Van Buren
+Nesconset
+Manorville
+Kent
+East Islip
+Farmington
+Schodack
+Fort Drum
+Fallsburg
+Ridge
+Wawarsing
+Brunswick
+Terryville
+Mastic Beach
+German Flatts
+Lewisboro
+Endicott
+Pelham
+Ulster
+Cornwall
+Stony Brook
+Kingsbury
+Patchogue
+North Castle
+Massena
+North Greenbush
+North Merrick
+Highlands
+Salisbury
+Bath
+Miller Place
+Patterson
+Elma
+North Wantagh
+Endwell
+Putnam Valley
+Elwood
+Mamakating
+North Bellport
+Lansing
+Tarrytown
+Wyandanch
+Catskill
+Red Hook
+Fulton
+Mount Sinai
+Canton
+Woodbury
+Walden
+Canandaigua
+Lake Grove
+Dobbs Ferry
+Suffern
+Ballston
+Mount Kisco
+Chenango
+Hornell
+Ogdensburg
+Geneseo
+North Lindenhurst
+Lloyd
+Hudson
+South Huntington
+Fredonia
+Plattekill
+Middle Island
+Great Neck
+West Haverstraw
+Southport
+Fairmount
+Ontario
+Kirkland
+Sleepy Hollow
+Scotchtown
+Alden
+Watervliet
+Inwood
+East Rockaway
+New Hyde Park
+Fort Salonga
+East Aurora
+Herkimer
+Philipstown
+Pleasant Valley
+North Gates
+Rye Brook
+Marcy
+Amityville
+Liberty
+Newfane
+Bohemia
+Hastings
+Manchester
+Walworth
+Mendon
+Crawford
+Rensselaer
+Valley Cottage
+Hamlin
+Farmingdale
+Plainedge
+Macedon
+Stony Brook University
+Lenox
+Woodbury
+Glens Falls North
+Airmont
+Esopus
+Stillwater
+New Square
+Seneca Falls
+New Scotland
+Newstead
+Marlborough
+Coxsackie
+Malverne
+Concord
+Waterford
+Barton
+Sand Lake
+Congers
+Bayport
+Dover
+Ellicott
+Vernon
+Garden City Park
+Kinderhook
+Erwin
+Pawling
+Johnstown
+North Elba
+Mahopac
+Schroeppel
+Cortlandville
+Niagara
+Center Moriches
+Port Jefferson
+Croton-on-Hudson
+Briarcliff Manor
+Sodus
+Lake Carmel
+Boston
+Chestnut Ridge
+Manhasset
+Hastings-on-Hudson
+Baldwinsville
+Sound Beach
+Medina
+Greenville
+Rhinebeck
+Greenfield
+Albion
+Wading River
+North Patchogue
+Scotia
+Big Flats
+Eden
+Baldwin Harbor
+Allegany
+Palmyra
+Livonia
+Schaghticoke
+Royalton
+Norwich
+Monticello
+Hillcrest
+Saranac Lake
+Port Jefferson Station
+Waterloo
+Le Roy
+Frankfort
+Coeymans
+Pompey
+Baywood
+Northport
+Wawayanda
+Pleasantville
+Williston Park
+Busti
+East Hills
+Tappan
+Skaneateles
+Nyack
+Attica
+Clarkson
+Mount Ivy
+South Lockport
+Hudson Falls
+Springs
+Great Neck Plaza
+Gouverneur
+Wellsville
+Cazenovia
+Calverton
+Oakdale
+Westmere
+Peru
+Viola
+Avon
+Mechanicstown
+West Glens Falls
+Phelps
+Milo
+Hewlett
+East Shoreham
+Hoosick
+Myers Corner
+South Valley Stream
+Williamson
+Bayville
+Mount Hope
+Pendleton
+Hanover
+Cedarhurst
+North Syracuse
+Manorhaven
+Porter
+Scriba
+Lawrence
+Roslyn Heights
+South Hill
+Tuckahoe
+Granby
+East Rochester
+Granville
+Duanesburg
+Irvington
+Hamilton
+Penn Yan
+Collins
+Orange Lake
+Corinth
+Cairo
+Lee
+Bronxville
+Ridgeway
+Ellenville
+West Point
+Fenton
+Carmel Hamlet
+Yaphank
+Cobleskill
+East Glenville
+Solvay
+Mayfield
+Homer
+Verona
+University at Buffalo
+East Farmingdale
+Fort Edward
+Lakeview
+Binghamton University
+Brownville
+Larchmont
+Marcellus
+Hurley
+Clifton Springs
+Westmoreland
+Fort Ann
+Wilna
+Windsor
+North Hills
+Gowanda
+Wesley Hills
+Groton
+Chester
+Rosendale
+Harris Hill
+Mattydale
+Wilson
+Lake Mohegan
+Woodstock
+Tupper Lake
+Hilton
+Cambria
+Washingtonville
+Flanders
+Elbridge
+Volney
+Saratoga
+Claverack
+Highland
+Champlain
+Riga
+Gardiner
+Pittstown
+Kirkwood
+Richland
+Islip Terrace
+Wappingers Falls
+Pelham Manor
+Harrietstown
+Hamptonburgh
+Marbletown
+Fort Plain
+Fairview
+Beekmantown
+Lyons
+East Moriches
+Sidney
+Honeoye Falls
+New Hempstead
+Salamanca
+Valatie
+Centerport
+Vienna
+Marilla
+Kaser
+East Quogue
+Fairport
+Kings Point
+Old Bethpage
+North Dansville
+Ballston Spa
+Albertson
+Williamsville
+Elmsford
+Ravena
+Newfield
+Conklin
+Walton
+Pound Ridge
+Broadalbin
+North Salem
+Blauvelt
+Maine
+Greene
+Ghent
+Carle Place
+Northumberland
+Schuyler Falls
+Dickinson
+Mexico
+Shelby
+Adams
+Candor
+West Hills
+Glen Head
+Colesville
+Mechanicville
+Alfred
+Sea Cliff
+West Sayville

@@ -1,0 +1,249 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+
+	<ui:define name="title">accounts</ui:define>
+
+
+
+
+
+	<ui:define name="content">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+
+		<h:form id="form-message" class="p-col-10">
+			<p:messages id="message"  closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+		<div class="p-grid card p-col-12">
+
+			<div class="card p-col-12">
+				<h5 style="text-decoration: underline">add new gmail account :</h5>
+
+				<h:form id="main-form">
+					<div class="p-grid-item p-formgroup-inline">
+						<div class="p-field">
+							<p:outputLabel for="label">username : </p:outputLabel>
+							<p:inputText styleClass="p-mr-2" id="label" required="true"
+								requiredMessage="Required : Label"
+								value="#{gmailCredentialManagedBean.newGmailCredential.username}" style="width:200px"
+								type="text" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="website">password : </p:outputLabel>
+							<p:inputText id="website" style="width:350px"
+								value="#{gmailCredentialManagedBean.newGmailCredential.password}" type="text"
+								required="true" requiredMessage="Required : password" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="perDay">perDay : </p:outputLabel>
+							<p:inputText id="perDay" style="width:350px"
+								value="#{gmailCredentialManagedBean.newGmailCredential.perDay}" type="text"
+								required="true" requiredMessage="Required : perDay" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="analyticsId">analyticsId : </p:outputLabel>
+							<p:inputText id="analyticsId" style="width:350px"
+								value="#{gmailCredentialManagedBean.newGmailCredential.analyticsId}" type="text"
+								required="true" requiredMessage="Required : analyticsId" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="proxyIp">proxyIp : </p:outputLabel>
+							<p:inputText id="proxyIp" style="width:350px"
+								value="#{gmailCredentialManagedBean.newGmailCredential.proxyIp}" type="text"
+								required="true" requiredMessage="Required : proxyIp" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="proxyPort">proxyPort : </p:outputLabel>
+							<p:inputText id="proxyPort" style="width:350px"
+								value="#{gmailCredentialManagedBean.newGmailCredential.proxyPort}" type="text"
+								required="true" requiredMessage="Required : proxyPort" />
+						</div>
+						<p:commandButton value="save" style="width:150px"
+							styleClass="success-button outlined-button  p-ml-4" update="@all"
+							action="#{gmailCredentialManagedBean.btnAddGmailCredential()}" />
+					</div>
+				</h:form>
+			</div>
+			
+			<h:form id="form-edit">
+				<p:dialog header="edit panel" widgetVar="dlg-edit-details" id="dlg-edit-details"
+					modal="true" responsive="true" width="750" showEffect="fade"
+					hideEffect="fade">
+					<h5 style="text-decoration: underline">Edit Gmail Credential :</h5>
+					<div class="ui-fluid">
+						<div class="p-field">
+							<strong><p:outputLabel value="username : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : username"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.username}" />
+						</div>
+						<div class="p-field">
+							<strong><p:outputLabel value="password : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : password"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.password}" />
+						</div>
+						<div class="p-field">
+							<strong><p:outputLabel value="perDay : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : perDay"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.perDay}" />
+						</div>
+						<div class="p-field">
+							<strong><p:outputLabel value="analyticsId : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : analyticsId"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.analyticsId}" />
+						</div>
+						<div class="p-field">
+							<strong><p:outputLabel value="proxyIp : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : proxyIp"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.proxyIp}" />
+						</div>
+						<div class="p-field">
+							<strong><p:outputLabel value="proxyPort : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : proxyPort"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.proxyPort}" />
+						</div>
+						
+					</div>
+					<f:facet name="footer">
+						<span class="ui-button-icon-left ui-icon ui-c pi pi-check" style="color: #2196F3;"></span>
+						<h:commandButton value="Update" icon="pi pi-check" action="#{gmailCredentialManagedBean.btnEditGmailCredential(gmailCredentialManagedBean.selectedGmailCredential)}"   
+				style="cursor: pointer;background-color: transparent;color: #2196F3;border-color: transparent;"></h:commandButton>
+						<p:commandButton value="Dismiss" type="button" icon="pi pi-times"
+							styleClass="primary-button text-button"
+							onclick="PF('dlg-edit-details').hide()" />
+					</f:facet>
+
+
+				</p:dialog>
+			</h:form>
+
+			<div class="card p-col-12">
+				<h5 style="text-decoration: underline">registered accounts :</h5>
+				<h:form>
+					<p:dataTable widgetVar="list-sources" var="gmailCredential"
+						value="#{gmailCredentialManagedBean.listGmailCredentials}" selectionMode="single"
+						reflow="true" selection="#{gmailCredentialManagedBean.selectedGmailCredential}"
+						rowKey="#{gmailCredential.gmailCredentialId}" scrollable="true" scrollHeight="500"
+						styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+
+						<p:column style="text-align:center" headerText="Username"
+							sortBy="#{gmailCredential.username}">
+							<h:outputText value="#{gmailCredential.username}" />
+						</p:column>
+
+						<p:column headerText="password" sortBy="#{gmailCredential.password}">
+							<h:outputText value="#{gmailCredential.password}" />
+						</p:column>
+						
+						<p:column headerText="perDay" sortBy="#{gmailCredential.perDay}">
+							<h:outputText value="#{gmailCredential.perDay}" />
+						</p:column>
+						
+						<p:column headerText="analyticsId" sortBy="#{gmailCredential.analyticsId}">
+							<h:outputText value="#{gmailCredential.analyticsId}" />
+						</p:column>
+						
+						<p:column headerText="proxyIp" sortBy="#{gmailCredential.proxyIp}">
+							<h:outputText value="#{gmailCredential.proxyIp}" />
+						</p:column>
+						
+						<p:column headerText="proxyPort" sortBy="#{gmailCredential.proxyPort}">
+							<h:outputText value="#{gmailCredential.proxyPort}" />
+						</p:column>
+
+						<p:column style="text-align:center" headerText="edit"
+							width="10%">
+							<p:commandLink update="form-edit:dlg-edit-details" global="false"
+								oncomplete="PF('dlg-edit-details').show()">
+								<i class="pi pi-pencil" style="font-size: 1rem"></i>
+								<f:setPropertyActionListener value="#{gmailCredential}"
+									target="#{gmailCredentialManagedBean.selectedGmailCredential}" />
+							</p:commandLink>
+						</p:column>
+
+						<p:column style="text-align:center" headerText="delete"
+							width="10%">
+							<p:commandLink global="false" update="form-delete:dlg-delete"
+								oncomplete="PF('dlg-delete').show()">
+								<i class="pi pi-trash" style="font-size: 1rem; color: red"></i>
+								<f:setPropertyActionListener value="#{gmailCredential}"
+									target="#{gmailCredentialManagedBean.selectedGmailCredential}" />
+							</p:commandLink>
+						</p:column>
+
+					</p:dataTable>
+				</h:form>
+			</div>
+
+
+			<h:form id="form-delete">
+				<p:dialog header="Are you absolutely sure ?" id="dlg-delete"
+					widgetVar="dlg-delete" modal="true" responsive="true" width="350"
+					showEffect="fade" hideEffect="fade">
+
+					<h5 style="background-color: #e0e05ae6">Unexpected bad things
+						will happen if you don’t read this!</h5>
+
+					<p class="text-left">
+						This action <strong>cannot</strong> be undone. This will
+						permanently delete gmail credential : <strong>
+							#{gmailCredentialManagedBean.selectedGmailCredential.username}</strong>
+
+					</p>
+					<p class="text-left">
+						Please type <strong>delete</strong> to confirm.
+					</p>
+					<div>
+						<p:inputText binding="#{deleteDialogConfirmValue}" id="d"
+							style="width:100% ; margin-bottom:8px">
+							<p:ajax event="keyup" update="btn-dialog-delete" global="false" />
+						</p:inputText>
+
+					</div>
+					<div>
+						<p:commandButton id="btn-dialog-delete" update="@all"
+							oncomplete="PF('dlg-delete').hide()"
+							disabled="#{deleteDialogConfirmValue.value =='delete' ? false : true}"
+							action="#{gmailCredentialManagedBean.deleteGmailCredential()}"
+							value="I understand the consequences continue with delete"
+							style="width:100%"
+							styleClass="danger-button outlined-button  p-mr-2 p-mb-2">
+							<p:resetInput target="@form" />
+						</p:commandButton>
+					</div>
+				</p:dialog>
+			</h:form>
+			
+		</div>
+
+
+
+	</ui:define>
+
+</ui:composition>

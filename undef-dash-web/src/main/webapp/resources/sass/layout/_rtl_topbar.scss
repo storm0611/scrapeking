@@ -1,0 +1,139 @@
+.layout-rtl {
+    &.layout-wrapper {
+        .layout-topbar {
+            direction: rtl;
+            left: 0;
+            right: 250px;
+            @include transition(right $transitionDuration);
+    
+            .layout-menu-button {
+                float: right;
+            }
+    
+            #topbar-menu-button {
+                float: left;
+            }
+    
+            .topbar-menu {
+                float: left;
+                
+                > li {
+                    float: left;
+                    margin-left: 0;
+                    margin-right: 14px;
+                    
+                    > a {
+                        .topbar-badge {
+                            right: auto;
+                            left: 4px;
+                        }
+                    }
+                
+                    > ul {
+                        right: auto;
+                        left: -18px;
+                        
+                        &:before, &:after {
+                            left: auto;
+                            right: 210px;
+                        }
+    
+                        &:before {
+                            margin-right: -10px;
+                            margin-left: 0;
+                        }
+    
+                        &:after {
+                            margin-left: 0;
+                            margin-right: -9px;
+                        }
+                        
+                        a {
+                            text-align: right;
+                            
+                            i {
+                                margin-left: 8px;
+                                margin-right: 0;
+                            }
+                            
+                            img {
+                                margin-right: 0;
+                                margin-left: 8px;
+                            }
+                            
+                            .topbar-submenuitem-badge {
+                                margin-left: 0;
+                                margin-right: 8px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @media screen and (max-width: $tabletBreakpoint) {
+        &.layout-wrapper {
+            .layout-topbar {    
+                .topbar-menu {
+                    right: auto;
+                    left: 25px;
+
+                    &:before, &:after {
+                        left: auto;
+                        right: 225px;
+                    }
+    
+                    &:before {
+                        margin-left: 0; 
+                        margin-right: -10px;
+                    }
+    
+                    &:after {
+                        margin-left: 0;
+                        margin-right: -9px;
+                    }
+
+                    > li {    
+                        &.user-profile {
+                            > a {
+                                img {
+                                    margin-right: 0;
+                                    margin-left: 8px;
+                                }
+                            }
+                        }
+                        
+                        a {
+                            text-align: right;
+
+                            .topbar-icon {
+                                margin-left: 8px;
+                                margin-right: 0;
+                            }
+                                            
+                            .topbar-badge {
+                                margin-left: 0;
+                                margin-right: 8px;
+                            }
+                        }
+                        
+                        > ul {                            
+                            li {
+                                a {
+                                    padding-right: 28px;
+                                    padding-left: 0;
+    
+                                    img {
+                                        margin-left: 8px;
+                                        margin-right: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }                
+            }
+        }
+    }
+}

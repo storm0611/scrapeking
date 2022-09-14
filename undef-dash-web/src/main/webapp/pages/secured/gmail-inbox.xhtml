@@ -1,0 +1,217 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/template.xhtml">
+	
+	<ui:define name="title">accounts</ui:define>
+	
+	<ui:define name="viewname">
+		<li><p:link outcome="/pages/secured/crud-campaign">gmail inbox</p:link></li>
+	</ui:define>
+
+
+
+
+
+	<ui:define name="content">
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+
+		<h:form id="form-message" class="p-col-10">
+			<p:messages id="message"  closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+
+		<div class="p-grid card p-col-12">
+		
+			<div class="card p-col-12">
+				<h5 style="text-decoration: underline">Gmail credential :</h5>
+
+				<h:form id="main-form">
+	                <p:selectOneMenu id="country" value="#{gmailInboxManagedBean.country}">
+	                    <p:ajax listener="#{gmailInboxManagedBean.onCountryChange}"/>
+	                    <f:selectItems value="#{gmailInboxManagedBean.countries}"/>
+	                </p:selectOneMenu>
+				</h:form>
+			</div>
+
+			<div class="card p-col-12">
+				<h5 style="text-decoration: underline">Gmail email's :</h5>
+				<h:form>
+					<div class="card">
+					    <h:form id="form">
+					        <p:dataTable id="products" var="message" value="#{gmailInboxManagedBean.gmailEmails}" rowKey="#{message.threadId}"
+					                     editable="false"
+										 rows="10"
+					                     paginator="false" widgetVar="dtProducts"
+					                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+					                     rowsPerPageTemplate="10" paginatorPosition="bottom"
+										 reflow="true" scrollable="false" width="100%" >
+					
+<!-- 								<p:ajax event="rowSelect" listener="#{gmailInboxManagedBean.changeClient}" process="products" /> -->
+								
+					            <p:column rendered="#{message.unread == true}">
+					            	<span><span class="badge badge-pill badge-danger" style=" display: inline-block; min-width: 10px; padding: 3px 7px; font-size: 12px; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: middle; background-color: #777; border-radius: 10px;">New</span></span>
+					            	<h:outputText value=" "></h:outputText>
+					                <h:outputText value="#{message.title}"></h:outputText>
+					            </p:column>
+					            <p:column rendered="#{message.unread == false}">
+					                <h:outputText value="#{message.title}"></h:outputText>
+					            </p:column>
+					            <p:column>
+					                <h:outputText value="#{message.subject}" />
+					            </p:column>
+					            <p:column style="text-align:right;">
+					                <h:outputText value="#{message.receiveDate}" >
+									    <f:convertDateTime pattern="d MMM yyyy HH:mm" />
+									</h:outputText>
+					            </p:column>
+					            <p:column style="text-align:center"
+									width="15%">
+									<p:commandButton type="button" value="view" onclick="window.open('/dash//pages/secured/gmail-message.xhtml?messageId=' + '#{message.threadId}'+ '-' + '#{message.credentialId}', '_blank').focus()" />
+								</p:column>
+					            
+					        </p:dataTable>
+					        
+
+<!-- 							<span class="ui-paginator-pages"> -->
+<!-- 							<a class="ui-paginator-page ui-state-default ui-state-active ui-corner-all" -->
+<!-- 								tabindex="0" href="#" aria-label="Page 1">1</a></span> -->
+							<div id="datatable-form:list-leads_paginator_top"
+								class="ui-paginator ui-paginator-top ui-widget-header ui-corner-top"
+								role="navigation" aria-label="Pagination">
+								<span
+									class="ui-paginator-current"><h:outputText value="#{gmailInboxManagedBean.pageFirstRowNumber}" escape="false"/>-<h:outputText value="#{gmailInboxManagedBean.pageLastRowNumber}" escape="false"/> of <h:outputText value="#{gmailInboxManagedBean.totalRecords}" escape="false"/> records</span>
+							</div>
+
+							<!--The paging buttons-->
+							<div id="datatable-form:list-leads_paginator_top"
+								class="ui-paginator ui-paginator-top ui-widget-header ui-corner-top"
+								role="navigation" aria-label="Pagination">
+				            <h:commandButton value="first" action="#{gmailInboxManagedBean.pagination(1)}"
+				                             disabled="#{gmailInboxManagedBean.firstPage == gmailInboxManagedBean.currentPage}" />
+				            <h:outputText value=" " escape="false"/>
+				            <h:commandButton value="prev" action="#{gmailInboxManagedBean.pagination(gmailInboxManagedBean.currentPage-1)}"
+				                             disabled="#{gmailInboxManagedBean.firstPage == gmailInboxManagedBean.currentPage}" />
+				            <h:outputText value=" " escape="false"/>
+				            <h:commandButton value="#{gmailInboxManagedBean.currentPage}" />
+				           	<h:outputText value=" " escape="false"/>
+				            <h:commandButton value="next" action="#{gmailInboxManagedBean.pagination(gmailInboxManagedBean.currentPage+1)}"
+				                             disabled="#{gmailInboxManagedBean.lastPage == gmailInboxManagedBean.currentPage}" />
+				            <h:outputText value=" " escape="false"/>
+				            <h:commandButton value="last" action="#{gmailInboxManagedBean.pagination(gmailInboxManagedBean.lastPage)}"
+				                             disabled="#{gmailInboxManagedBean.lastPage == gmailInboxManagedBean.currentPage}" />
+				            </div>
+						</h:form>
+					</div>
+				</h:form>
+			</div>
+
+
+			<h:form id="form-delete">
+				<p:dialog header="Are you absolutely sure ?" id="dlg-delete"
+					widgetVar="dlg-delete" modal="true" responsive="true" width="350"
+					showEffect="fade" hideEffect="fade">
+
+					<h5 style="background-color: #e0e05ae6">Unexpected bad things
+						will happen if you don’t read this!</h5>
+
+					<p class="text-left">
+						This action <strong>cannot</strong> be undone. This will
+						permanently delete gmail credential : <strong>
+							#{gmailCredentialManagedBean.selectedGmailCredential.username}</strong>
+
+					</p>
+					<p class="text-left">
+						Please type <strong>delete</strong> to confirm.
+					</p>
+					<div>
+						<p:inputText binding="#{deleteDialogConfirmValue}" id="d"
+							style="width:100% ; margin-bottom:8px">
+							<p:ajax event="keyup" update="btn-dialog-delete" global="false" />
+						</p:inputText>
+
+					</div>
+					<div>
+						<p:commandButton id="btn-dialog-delete" update="@all"
+							oncomplete="PF('dlg-delete').hide()"
+							disabled="#{deleteDialogConfirmValue.value =='delete' ? false : true}"
+							action="#{gmailCredentialManagedBean.deleteGmailCredential()}"
+							value="I understand the consequences continue with delete"
+							style="width:100%"
+							styleClass="danger-button outlined-button  p-mr-2 p-mb-2">
+							<p:resetInput target="@form" />
+						</p:commandButton>
+					</div>
+				</p:dialog>
+			</h:form>
+			
+			<h:form id="form-edit">
+				<p:dialog header="edit panel" widgetVar="dlg-edit-details" id="dlg-edit-details"
+					modal="true" responsive="true" width="750" showEffect="fade"
+					hideEffect="fade">
+					<h5 style="text-decoration: underline">Edit Gmail Credential :</h5>
+					<div class="ui-fluid">
+						<div class="p-field">
+							<strong><p:outputLabel value="username : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : username"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.username}" />
+						</div>
+						<div class="p-field">
+							<strong><p:outputLabel value="password : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : password"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.password}" />
+						</div>
+						<div class="p-field">
+							<strong><p:outputLabel value="perDay : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : perDay"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.perDay}" />
+						</div>
+						<div class="p-field">
+							<strong><p:outputLabel value="analyticsId : "
+									style="font-size: 16px" /></strong>
+							<p:inputText
+								requiredMessage="Required : analyticsId"
+								value="#{gmailCredentialManagedBean.selectedGmailCredential.analyticsId}" />
+						</div>
+						
+					</div>
+					<f:facet name="footer">
+						<p:commandButton value="Save" type="button" icon="pi pi-check"
+							styleClass="primary-button text-button" update="@all">
+							<f:ajax event="click" listener="#{gmailCredentialManagedBean.btnEditGmailCredential()}"/>
+						</p:commandButton>
+						<p:commandButton value="Dismiss" type="button" icon="pi pi-times"
+							styleClass="primary-button text-button"
+							onclick="PF('dlg-edit-details').hide()" />
+					</f:facet>
+
+
+				</p:dialog>
+			</h:form>
+
+		</div>
+
+
+
+	</ui:define>
+
+</ui:composition>

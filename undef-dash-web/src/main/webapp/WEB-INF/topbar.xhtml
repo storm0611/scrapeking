@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="layout-topbar">
+		<h:link id="toplogolink" styleClass="layout-topbar-logo">
+			<p:graphicImage
+				name="images/#{guestPreferences.darkLogo ? 'logo-black.png' : 'logo-white.png'}"
+				library="babylon-layout" />
+		</h:link>
+
+		<a class="layout-menu-button" href="#"> <i class="pi pi-bars" />
+		</a> <a id="topbar-menu-button" href="#"> <i class="pi pi-ellipsis-v"></i>
+		</a>
+
+		<ul class="topbar-menu fadeInDown">
+			<ui:fragment
+				rendered="#{guestPreferences.profileMode == 'popup' ? true : false}">
+				<li class="user-profile"><a href="#"> <p:graphicImage
+							name="images/avatar.png" library="babylon-layout" /> <span
+						class="topbar-item-name">Arlene Welch</span>
+				</a>
+					<ul>
+						<li><a href="#"> <i class="pi pi-user"></i> <span>Profile</span>
+						</a></li>
+						<li><a href="#"> <i class="pi pi-cog"></i> <span>Settings</span>
+						</a></li>
+						<li><a href="#"> <i class="pi pi-envelope"></i> <span>Messages</span>
+						</a></li>
+						<li><a href="#"> <i class="pi pi-bell"></i> <span>Notifications</span>
+						</a></li>
+					</ul></li>
+			</ui:fragment>
+			<li><a href="#"> <i class="topbar-icon pi pi-calendar"></i>
+					<span class="topbar-item-name">Notifications</span>
+			</a>
+				<ul>
+					<li role="menuitem"><a href="#"> <i class="pi pi-list"></i>
+							<span>Pending tasks</span> <span class="topbar-submenuitem-badge">6</span>
+					</a></li>
+					<li role="menuitem"><a href="#"> <i
+							class="pi pi-calendar-plus"></i> <span>Meeting today</span>
+					</a></li>
+					<li role="menuitem"><a href=""> <i class="pi pi-download"></i>
+							<span>Download</span>
+					</a></li>
+					<li role="menuitem"><a href="#"> <i class="pi pi-ticket"></i>
+							<span>Book flight</span>
+					</a></li>
+				</ul></li>
+			<li><a href="#"> <i class="topbar-icon pi pi-inbox"></i> <span
+					class="topbar-item-name">Messages</span> <span class="topbar-badge">8</span>
+			</a>
+				<ul>
+					<li role="menuitem"><a href="#" class="topbar-message"> <p:graphicImage
+								name="images/avatar-john.png" library="babylon-layout" /> <span>Give
+								me a call</span>
+					</a></li>
+					<li role="menuitem"><a href="#" class="topbar-message"> <p:graphicImage
+								name="images/avatar-julia.png" library="babylon-layout" /> <span>Reports
+								attached</span>
+					</a></li>
+					<li role="menuitem"><a href="#" class="topbar-message"> <p:graphicImage
+								name="images/avatar-kevin.png" library="babylon-layout" /> <span>About
+								your invoice</span>
+					</a></li>
+					<li role="menuitem"><a href="#" class="topbar-message"> <p:graphicImage
+								name="images/avatar-julia.png" library="babylon-layout" /> <span>Meeting
+								today</span>
+					</a></li>
+					<li role="menuitem"><a href="#" class="topbar-message"> <p:graphicImage
+								name="images/avatar.png" library="babylon-layout" /> <span>Out
+								of office</span>
+					</a></li>
+				</ul></li>
+			<li><a href="#"> <i class="topbar-icon pi pi-cog"></i> <span
+					class="topbar-item-name">Settings</span>
+			</a>
+				<ul>
+					<li role="menuitem"><a href="#"> <i class="pi pi-palette"></i>
+							<span>Change Theme</span> <span class="topbar-submenuitem-badge">4</span>
+					</a></li>
+					<li role="menuitem"><a href="#"> <i class="pi pi-star"></i>
+							<span>Favorites</span>
+					</a></li>
+					<li role="menuitem"><a href="#"> <i class="pi pi-lock"></i>
+							<span>Lock Screen</span> <span class="topbar-submenuitem-badge">2</span>
+					</a></li>
+					<li role="menuitem"><a href="#"> <i class="pi pi-image"></i>
+							<span>Wallpaper</span>
+					</a></li>
+				</ul></li>
+		</ul>
+	</div>
+</ui:composition>

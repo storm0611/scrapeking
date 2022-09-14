@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pb="http://primefaces.org/babylon">
+
+
+	<pb:menu widgetVar="babylonMenuWidget">
+		
+		<p:submenu id="om_homepage" label="Favorites" icon="pi pi-home">
+			<p:menuitem id="om_dashboard" value="dashboard" icon="pi pi-home"
+				outcome="/pages/secured/dashboard" />
+
+			<p:menuitem value="create campaign"
+				outcome="/pages/secured/crud-campaign" />
+			<p:menuitem value="sources" outcome="/pages/secured/source" />
+			<p:menuitem value="email servers"
+				outcome="/pages/secured/email-server" />
+
+
+			<p:submenu label="outreach templates">
+				<p:menuitem value="new template"
+					outcome="/pages/secured/email-template" />
+				<p:menuitem value="list templates"
+					outcome="/pages/secured/list-email-template.xhtml" />
+
+			</p:submenu>
+			
+			<p:menuitem value="gmail accounts"
+				outcome="/pages/secured/gmail" />
+				
+			<p:menuitem value="gmail inbox"
+				outcome="/pages/secured/gmail-inbox.xhtml?credentialId=0" />
+
+		</p:submenu>
+
+
+	</pb:menu>
+
+</ui:composition>
